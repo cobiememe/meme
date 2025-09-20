@@ -4,10 +4,82 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Meme</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      margin-top: 30px;
+    }
+
+    .main-meme {
+      margin: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      padding: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .grid a {
+      display: block;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .grid img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.4s ease, filter 0.3s ease;
+    }
+
+    .grid a:hover img {
+      transform: scale(1.08) rotate(1deg);
+      filter: brightness(1.1);
+    }
+  </style>
 </head>
-<body style="font-family: sans-serif; text-align: center;">
+<body>
   <h1>🐸 Welcome to My Meme</h1>
-  <img src="https://i.imgur.com/Gfs1jdh.jpeg" alt="Meme" width="300" />
-  <p>This is the legendary meme of 2025. Hold tight 🚀</p>
+  <div class="main-meme">
+    <img src="https://i.imgur.com/Gfs1jdh.jpeg" alt="Meme" width="300" />
+    <p>This is the legendary meme of 2025. Hold tight 🚀</p>
+  </div>
+
+  <!-- Meme Grid -->
+  <div class="grid">
+    <a href="https://twitter.com/" target="_blank">
+      <img src="<img src="img/meme1.jpg" alt="Meme 1">" alt="Twitter Meme">
+    </a>
+    <a href="https://t.me/" target="_blank">
+      <img src="https://i.imgur.com/9f3D7Tk.jpeg" alt="Telegram Meme">
+    </a>
+    <a href="https://raydium.io/" target="_blank">
+      <img src="https://i.imgur.com/w1HZcAe.jpeg" alt="Raydium Meme">
+    </a>
+    <a href="https://www.coingecko.com/" target="_blank">
+      <img src="https://i.imgur.com/8p1VK8z.jpeg" alt="CoinGecko Meme">
+    </a>
+    <a href="https://pump.fun/" target="_blank">
+      <img src="https://i.imgur.com/4x4ZjsC.jpeg" alt="PumpFun Meme">
+    </a>
+    <a href="https://dexscreener.com/" target="_blank">
+      <img src="https://i.imgur.com/MIOUPUL.jpeg" alt="Dex Meme">
+    </a>
+  </div>
 </body>
 </html>
+
+
