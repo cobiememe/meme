@@ -1,6 +1,6 @@
 // Sound laden
 const hoverSound = new Audio('sounds/hover.mp3');
-hoverSound.volume = 0.2;
+hoverSound.volume = 0.01;
 
 document.querySelectorAll('.fx').forEach(img => {
   img.addEventListener('mouseover', () => {
