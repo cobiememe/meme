@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Meme</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- 🔊 SOUND ACTIVATION OVERLAY -->
+  <div id="sound-activate" onclick="enableSound()" style="
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    cursor: pointer;
+  ">
+    🔊 Click anywhere to activate sound
+  </div>
+
+  <script>
+    function enableSound() {
+      document.getElementById("sound-activate").style.display = "none";
+      const audio = new Audio("sounds/hover.mp3");
+      audio.volume = 0.2;
+      audio.play().catch(() => {});
+    }
+  </script>
+
+  <!-- HEADER + MAIN MEME -->
+  <h1>👑Welcome to My Meme👑</h1>
+  <div class="main-meme">
+    <img id="cobie" src="img/cobieGif.gif" alt="Cobie" width="300" />
+
+    <p>This is the legendary meme of 2025 & Beyond. Hold tight 🚀</p>
+  </div>
+
+  <!-- Meme Grid -->
+  <div class="grid">
+    <a href="https://x.com/cobie" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Twitter Meme">
+    </a>
+    <a href="https://www.youtube.com/watch?v=PAHnjvh5qIU" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Telegram Meme">
+    </a>
+    <a href="<a href="secrets/secret1.html" target="_blank">
+  <img class="fx" src="img/twitter-trump.jpg" alt="Telegram Meme">
+</a>
+" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Raydium Meme">
+    </a>
+    <a href="https://www.coingecko.com/en/crypto-gainers-losers" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="CoinGecko Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret1.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="PumpFun Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret1.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Dex Meme">
+    </a>
+	<a href="https://x.com/ledgerstatus" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Twitter Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret1.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Telegram Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret1.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Raydium Meme">
+    </a>
+    <a href="https://www.coingecko.com/en/coins/dogecoin" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="CoinGecko Meme">
+    </a>
+    <a href="https://www.bitaddress.org/bitaddress.org-v3.3.0-SHA256-dec17c07685e1870960903d8f58090475b25af946fe95a734f88408cef4aa194.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="PumpFun Meme">
+    </a>
+    <a href="https://www.blockchain.com/explorer/addresses/btc/1NiNja1bUmhSoTXozBRBEtR8LeF9TGbZBN" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Dex Meme">
+    </a>
+	<a href="https://x.com/Cobie_meme" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Twitter Meme">
+    </a>
+    <a href="https://x.com/Cobie_meme/status/1970399440973504623" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Telegram Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret1.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Raydium Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret1.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="CoinGecko Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret1.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="PumpFun Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret1.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Dex Meme">
+    </a>
+	<a href="https://www.cobie.uk/secrets/secret1.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Twitter Meme">
+    </a>
+    <a href="https://www.youtube.com/watch?v=PAHnjvh5qIU" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Telegram Meme">
+    </a>
+  </div>
+
+  <!-- Sound Test Button (optional) -->
+  <button onclick="document.getElementById('test-audio').play()">🔊 Test Sound</button>
+  <audio id="test-audio" src="sounds/hover.mp3"></audio>
+
+  <script src="script.js"></script>
+  
+  <!-- Scrollender Text Links -->
+<div class="side-text left-scroll">
+  <p>I have become a meme</p>
+</div>
+
+<!-- Scrollender Text Rechts -->
+<div class="side-text right-scroll">
+  <p>This is only the beginning...</p>
+</div>
+
+</body>
+</html>
