@@ -1,6 +1,6 @@
 // Sound laden
 const hoverSound = new Audio('sounds/hover.mp3');
-hoverSound.volume = 0.5;
+hoverSound.volume = 0.2;
 
 document.querySelectorAll('.fx').forEach(img => {
   img.addEventListener('mouseover', () => {
@@ -27,7 +27,7 @@ const cobieImg = document.getElementById("cobie");
 
 if (cobieImg) {
   cobieImg.addEventListener("mouseenter", () => {
-    cobieImg.src = "img/cobie.gif";
+    cobieImg.src = "img/cobieGif.gif";
   });
 
   cobieImg.addEventListener("mouseleave", () => {

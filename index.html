@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <!-- 🔊 SOUND ACTIVATION OVERLAY -->
+    <!-- 🔊 SOUND ACTIVATION OVERLAY -->
   <div id="sound-activate" onclick="enableSound()" style="
     position: fixed;
     inset: 0;
@@ -24,14 +24,15 @@
     🔊 Click anywhere to activate sound
   </div>
 
+  <!-- Audio nur EINMAL definiert (nicht autoplay) -->
+  <audio id="main-audio" src="sounds/hover.mp3" loop></audio>
+
   <script>
-    function enableSound() {
-      document.getElementById("sound-activate").style.display = "none";
-      const audio = new Audio("sounds/hover.mp3");
-      audio.volume = 0.2;
-      audio.play().catch(() => {});
-    }
-  </script>
+  function enableSound() {
+    document.getElementById("sound-activate").style.display = "none";
+    hoverSound.volume = 0.2;  // greift auf script.js Audio zu
+  }
+</script>
 
   <!-- HEADER + MAIN MEME -->
   <h1>👑Welcome to My Meme👑</h1>
