@@ -1,5 +1,5 @@
 // Sound laden
-const hoverSound = new Audio('sounds/hover.mp3');
+const hoverSound = new Audio('../sounds/hover.mp3');
 hoverSound.volume = 0.01;
 
 // Hover-Effekte für alle .fx Bilder (Trump Bilder)
@@ -36,4 +36,5 @@ if (cobieImg) {
   cobieImg.addEventListener("mouseleave", () => {
     cobieImg.src = "img/cobie.jpg";
   });
+
 }
