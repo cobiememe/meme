@@ -36,6 +36,4 @@ if (cobieImg) {
   cobieImg.addEventListener("mouseleave", () => {
     cobieImg.src = "img/cobie.jpg";
   });
-
 }
-
