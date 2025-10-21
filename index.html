@@ -5,8 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Meme</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ✨ Neue Social Buttons oben links */
+    .social-buttons {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      display: flex;
+      gap: 10px;
+      z-index: 9999;
+    }
+    .social-buttons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(4px);
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .social-buttons a:hover {
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.1);
+    }
+    .social-buttons img {
+      width: 22px;
+      height: 22px;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- 🔗 Social Buttons -->
+  <div class="social-buttons">
+    <a href="https://x.com/Cobie_meme" target="_blank" title="X / Twitter">
+      <img src="img/x-logo.png" alt="X Logo" />
+    </a>
+    <a href="https://t.me/cobie_meme" target="_blank" title="Telegram">
+      <img src="img/telegram-logo.png" alt="Telegram Logo" />
+    </a>
+  </div>
 
   <!-- 🔊 SOUND ACTIVATION OVERLAY -->
   <div id="sound-activate" onclick="enableSound()" style="
@@ -27,7 +67,7 @@
   <script>
     function enableSound() {
       document.getElementById("sound-activate").style.display = "none";
-      window.soundEnabled = true;  // Global flag setzen
+      window.soundEnabled = true;
     }
   </script>
 
@@ -37,7 +77,7 @@
     <img id="cobie" src="img/cobie.jpg" alt="Cobie" width="300" />
 
     <p>This is the legendary meme of 2025 & Beyond. Hold tight 🚀</p>
-    <p>Sol Address: 2NoFmB6ZvqRmqX4BYgQQ297oaYhuurKY9FtYj1mmbRMY🚀</p>
+    <p>Sol Adress: 12xxxx🚀</p>
   </div>
 
   <!-- Meme Grid -->
@@ -54,7 +94,7 @@
     <a href="https://www.coingecko.com/" target="_blank">
       <img class="fx" src="img/twitter-trump.jpg" alt="CoinGecko Meme">
     </a>
-    <a href="https://www.cobie.uk/secrets/cobiechart.html" target="_blank">
+    <a href="https://pump.fun/" target="_blank">
       <img class="fx" src="img/twitter-trump.jpg" alt="PumpFun Meme">
     </a>
     <a href="https://www.cobie.uk/secrets/secret2.html" target="_blank">
@@ -78,7 +118,7 @@
     <a href="https://www.cobie.uk/secrets/secret7.html" target="_blank">
       <img class="fx" src="img/twitter-trump.jpg" alt="Dex Meme">
     </a>
-    <a href="https://www.cobie.uk/secrets/cobiechart.html" target="_blank">
+    <a href="https://twitter.com/" target="_blank">
       <img class="fx" src="img/twitter-trump.jpg" alt="Twitter Meme">
     </a>
     <a href="https://www.cobie.uk/secrets/secret8.html" target="_blank">
@@ -90,7 +130,7 @@
     <a href="https://www.youtube.com/watch?v=PAHnjvh5qIU" target="_blank">
       <img class="fx" src="img/twitter-trump.jpg" alt="CoinGecko Meme">
     </a>
-    <a href="https://www.cobie.uk/secrets/secret10.html" target="_blank">
+    <a href="https://www.blockchain.com/explorer/addresses/btc/1NiNja1bUmhSoTXozBRBEtR8LeF9TGbZBN" target="_blank">
       <img class="fx" src="img/twitter-trump.jpg" alt="PumpFun Meme">
     </a>
     <a href="https://www.coingecko.com/en/coins/dogecoin" target="_blank">
@@ -99,7 +139,7 @@
     <a href="https://www.cobie.uk/secrets/3js.html" target="_blank">
       <img class="fx" src="img/twitter-trump.jpg" alt="Twitter Meme">
     </a>
-    <a href="https://www.cobie.uk/secrets/getmemed.html" target="_blank">
+    <a href="https://www.cobie.uk/secrets/secret10.html" target="_blank">
       <img class="fx" src="img/twitter-trump.jpg" alt="Telegram Meme">
     </a>
   </div>
@@ -107,8 +147,8 @@
   <p>(?)6JJMqnMjd6p3Hpdek8Yf57n18bb2yJTrxwZaSqxHU4cQYH4CKUK(?) 🚀</p>
   
   <!-- Sound Test Button (optional) -->
-    <button onclick="document.getElementById('test-audio').play()">🔊 Test Sound</button>
-  <audio id="test-audio" src="../sounds/hover.mp3"></audio>
+  <button onclick="document.getElementById('test-audio').play()">🔊 Test Sound</button>
+  <audio id="test-audio" src="sounds/hover.mp3"></audio>
 
   <script src="script.js"></script>
   
@@ -124,11 +164,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
