@@ -1,34 +1,268 @@
+/* ===== BASIC BODY STYLES ===== */
 body {
-  font-family: sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-  background-color: #f4f4f4;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: #e0e0e0;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
 }
 
 h1 {
-  margin-top: 30px;
+  margin-top: 80px;
+  font-size: 2.8rem;
+  text-shadow: 0 0 20px #ffd700, 0 0 30px #ffa500;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 20px #ffd700, 0 0 30px #ffa500; }
+  to { text-shadow: 0 0 30px #ffd700, 0 0 50px #ffa500, 0 0 60px #ff6b00; }
+}
+
+/* ===== SOCIAL BUTTONS (from original) ===== */
+.social-buttons {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  display: flex;
+  gap: 10px;
+  z-index: 9999;
+}
+
+.social-buttons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(4px);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.social-buttons a:hover {
+  background: rgba(255,255,255,0.3);
+  transform: scale(1.1);
+}
+
+.social-buttons img {
+  width: 22px;
+  height: 22px;
+}
+
+/* ===== SOUND ACTIVATION OVERLAY ===== */
+#sound-activate {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  color: white;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: opacity 0.5s ease;
+}
+
+#sound-activate:hover {
+  background: rgba(0,0,0,0.95);
+}
+
+/* ===== SECRET TRACKER ===== */
+.secret-tracker {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: rgba(0,0,0,0.7);
+  padding: 12px 20px;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,215,0,0.3);
+  z-index: 9999;
+  font-size: 14px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+#secrets-found {
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#achievement-badge {
+  font-size: 20px;
+  animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* ===== HERO SECTION ===== */
+.hero-section {
+  margin: 40px auto;
+  max-width: 800px;
 }
 
 .main-meme {
   margin: 20px;
+  padding: 30px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,215,0,0.2);
 }
 
+.main-meme h2 {
+  color: #ffd700;
+  margin: 20px 0 10px;
+  font-size: 1.8rem;
+}
+
+.tagline {
+  font-size: 1.2rem;
+  color: #00d4ff;
+  font-style: italic;
+}
+
+#cobie {
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(255,215,0,0.4);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+#cobie:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 50px rgba(255,215,0,0.8);
+}
+
+/* ===== CONTRACT ADDRESS ===== */
+.contract-address {
+  margin-top: 25px;
+  padding: 15px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.address-text {
+  font-family: monospace;
+  color: #00ff88;
+  font-size: 13px;
+  word-break: break-all;
+}
+
+.copy-btn {
+  background: rgba(0,212,255,0.3);
+  border: 2px solid #00d4ff;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.copy-btn:hover {
+  background: rgba(0,212,255,0.6);
+  transform: scale(1.05);
+}
+
+/* ===== NAVIGATION TABS ===== */
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 30px auto;
+  flex-wrap: wrap;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.tab-btn {
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 12px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  backdrop-filter: blur(5px);
+}
+
+.tab-btn:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+  border-color: #00d4ff;
+}
+
+.tab-btn.active {
+  background: rgba(0,212,255,0.3);
+  border-color: #00d4ff;
+  box-shadow: 0 0 20px rgba(0,212,255,0.5);
+}
+
+/* ===== INTRO BOX ===== */
+.intro-box {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 25px;
+  background: rgba(255,215,0,0.1);
+  border: 2px solid rgba(255,215,0,0.3);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+}
+
+.intro-box p {
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.hint-text {
+  color: #ffd700;
+  font-style: italic;
+  margin-top: 15px !important;
+}
+
+/* ===== MYSTERY GRID ===== */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
-  padding: 30px;
-  max-width: 1000px;
+  gap: 20px;
+  padding: 40px 30px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.grid a {
+.grid-item {
+  position: relative;
   display: block;
   overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  background: rgba(0,0,0,0.3);
+  border: 2px solid rgba(255,255,255,0.1);
+}
+
+.grid-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,212,255,0.4);
+  border-color: rgba(0,212,255,0.6);
 }
 
 .grid img {
@@ -39,12 +273,80 @@ h1 {
   animation: float 5s ease-in-out infinite;
 }
 
+/* ===== HOVER HINTS (Hidden until hover) ===== */
+.hover-hint {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.9);
+  color: white;
+  padding: 10px;
+  font-size: 14px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.grid-item:hover .hover-hint {
+  transform: translateY(0);
+}
+
+/* ===== CATEGORY TAGS ===== */
+.category-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0,212,255,0.8);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.secret-tag {
+  background: rgba(255,0,128,0.8);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.game-tag {
+  background: rgba(138,43,226,0.8);
+}
+
+.lore-tag {
+  background: rgba(255,140,0,0.8);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* ===== HOVER EFFECTS (from original) ===== */
 .grid a:hover img {
   animation: spinZoom 1s ease-in-out forwards;
   filter: brightness(1.4) hue-rotate(120deg) saturate(1.5);
   box-shadow: 0 0 40px 10px #00f0ff;
 }
 
+/* Different effects for different categories */
+.secrets:hover img {
+  filter: brightness(1.3) hue-rotate(300deg) saturate(1.8);
+  box-shadow: 0 0 40px 10px #ff0080 !important;
+}
+
+.games:hover img {
+  filter: brightness(1.4) hue-rotate(250deg) saturate(2);
+  box-shadow: 0 0 40px 10px #8a2be2 !important;
+}
+
+.lore:hover img {
+  filter: brightness(1.3) hue-rotate(30deg) saturate(1.6);
+  box-shadow: 0 0 40px 10px #ff8c00 !important;
+}
 
 /* Schwebender Effekt */
 @keyframes float {
@@ -64,20 +366,101 @@ h1 {
     transform: rotate(360deg) scale(1.5);
   }
 }
+
+/* ===== CATEGORY FILTERING ===== */
+.grid-item.hidden {
+  display: none;
+}
+
+/* ===== MYSTERY CODE SECTION ===== */
+.mystery-code {
+  margin: 50px auto;
+  padding: 30px;
+  max-width: 800px;
+  background: rgba(0,0,0,0.5);
+  border: 2px solid rgba(255,215,0,0.3);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+}
+
+.code-text {
+  font-family: monospace;
+  font-size: 18px;
+  color: #00ff88;
+  letter-spacing: 2px;
+  margin: 0 0 10px;
+  word-break: break-all;
+}
+
+.code-hint {
+  color: #ffd700;
+  font-style: italic;
+  margin: 10px 0 0;
+}
+
+/* ===== FOOTER INFO ===== */
+.footer-info {
+  max-width: 800px;
+  margin: 50px auto 30px;
+  padding: 40px 30px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  border: 2px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+}
+
+.footer-info h3 {
+  color: #ffd700;
+  margin-bottom: 20px;
+}
+
+.footer-info p {
+  line-height: 1.8;
+  margin: 15px 0;
+}
+
+.small-text {
+  font-size: 14px;
+  color: #888;
+  margin-top: 20px !important;
+}
+
+/* ===== SOUND TEST BUTTON ===== */
+.sound-test-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0,212,255,0.3);
+  border: 2px solid #00d4ff;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  z-index: 9998;
+}
+
+.sound-test-btn:hover {
+  background: rgba(0,212,255,0.6);
+  transform: scale(1.05);
+}
+
+/* ===== SCROLLING SIDE TEXT (from original) ===== */
 .side-text {
   position: fixed;
-  width: 80px;               /* <-- statt 30px */
+  width: 80px;
   height: 100%;
   z-index: 10;
   font-size: 48px;
-  font-weight: bold;         /* etwas fetter */
+  font-weight: bold;
   writing-mode: vertical-rl;
   text-align: center;
   opacity: 0.85;
   pointer-events: none;
-  color: #333;
-  text-shadow: 0 0 10px #999;
-  overflow: visible;         /* <-- NICHT hidden! */
+  color: #ffd700;
+  text-shadow: 0 0 15px rgba(255,215,0,0.6);
+  overflow: visible;
 }
 
 .left-scroll {
@@ -110,3 +493,68 @@ h1 {
   }
 }
 
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+    margin-top: 60px;
+  }
+  
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    padding: 20px 15px;
+  }
+  
+  .nav-tabs {
+    gap: 8px;
+  }
+  
+  .tab-btn {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+  
+  .side-text {
+    font-size: 32px;
+    width: 50px;
+  }
+  
+  .left-scroll {
+    left: 10px;
+  }
+  
+  .right-scroll {
+    right: 10px;
+  }
+  
+  .secret-tracker {
+    font-size: 12px;
+    padding: 8px 12px;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.grid-item {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.grid-item:nth-child(1) { animation-delay: 0.1s; }
+.grid-item:nth-child(2) { animation-delay: 0.2s; }
+.grid-item:nth-child(3) { animation-delay: 0.3s; }
+.grid-item:nth-child(4) { animation-delay: 0.4s; }
+.grid-item:nth-child(5) { animation-delay: 0.5s; }
+/* Continue pattern for more items */
