@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="CobieDex - Discover new Solana tokens with advanced rug-pull detection. Real-time tracking and analytics for SOL traders.">
     <title>CobieDex - Solana Token Scanner & Analytics</title>
-    <link rel="stylesheet" href="/CobieDex/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="logo" onclick="window.location.href='index.html'">
-           <div class="logo-icon">
-  <img src="../img/cobieGif.gif" alt="Cobie Logo" />
-</div>
-         <div class="logo-text">
+        <div class="logo" onclick="window.location.href='v2index.html'">
+            <div class="logo-icon">
+                <img src="../img/cobieGif.gif" alt="Cobie Logo">
+            </div>
+            <div class="logo-text">
                 <h1>CobieDex</h1>
                 <p>by <a href="https://cobie.uk" target="_blank" style="color: #8b5cf6;">Cobie.uk</a></p>
             </div>
@@ -74,7 +74,7 @@
                 <button class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;" onclick="document.getElementById('wallet-btn').click()">
                     🚀 Explore Tokens Now
                 </button>
-                <button class="btn btn-outline" style="font-size: 1.1rem; padding: 1rem 2rem;" onclick="window.location.href='https://cobie.uk/cobiedex/v2advertise.html'">
+                <button class="btn btn-outline" style="font-size: 1.1rem; padding: 1rem 2rem;" onclick="window.location.href='v2advertise.html'">
                     📢 Advertise Your Token
                 </button>
             </div>
@@ -185,7 +185,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="assets/app.js"></script>
+    <script src="script.js"></script>
     <script>
         // Add animation styles
         const style = document.createElement('style');
@@ -217,7 +217,7 @@
             if (e.key === 'Enter') {
                 const query = e.target.value;
                 if (query) {
-                    window.location.href = `dashboard.html?search=${encodeURIComponent(query)}`;
+                    window.location.href = `v2dashboard.html?search=${encodeURIComponent(query)}`;
                 }
             }
         });

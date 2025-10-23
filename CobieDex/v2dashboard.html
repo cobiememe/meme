@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="CobieDex Dashboard - Track new Solana tokens in real-time with advanced analytics">
     <title>Dashboard | CobieDex</title>
-    <link rel="stylesheet" href="/CobieDex/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="logo" onclick="window.location.href='v2index.html'">
             <div class="logo-icon">
-  <img src="../img/cobieGif.gif" alt="Cobie Logo" />
-</div>
+                <img src="../img/cobieGif.gif" alt="Cobie Logo">
+            </div>
             <div class="logo-text">
                 <h1>CobieDex</h1>
                 <p>by <a href="https://cobie.uk" target="_blank" style="color: #8b5cf6;">Cobie.uk</a></p>
@@ -43,7 +43,7 @@
     <div class="container">
         <!-- Navigation Breadcrumbs -->
         <div style="margin-bottom: 1.5rem; color: var(--color-text-secondary); font-size: var(--fs-sm);">
-            <a href="v2-index.html" style="color: var(--color-text-secondary); transition: color 0.3s;" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color='var(--color-text-secondary)'">Home</a>
+            <a href="v2index.html" style="color: var(--color-text-secondary); transition: color 0.3s;" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color='var(--color-text-secondary)'">Home</a>
             <span> / </span>
             <span style="color: var(--color-text-primary);">Dashboard</span>
         </div>
@@ -52,163 +52,4 @@
         <div class="filter-bar">
             <div class="filter-tabs">
                 <div class="tab active" data-tab="hot">🔥 Hot</div>
-                <div class="tab" data-tab="new">🆕 New</div>
-                <div class="tab" data-tab="trending">🚀 Trending</div>
-                <div class="tab" data-tab="watchlist">⭐ Watchlist</div>
-            </div>
-            
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                <div style="display: flex; gap: 0.5rem; align-items: center;">
-                    <span style="color: var(--color-text-secondary); font-size: var(--fs-sm);">Age:</span>
-                    <select class="filter-select" data-filter="age">
-                        <option value="<1h">< 1 hour</option>
-                        <option value="<24h">< 24 hours</option>
-                        <option value="all" selected>All time</option>
-                    </select>
-                </div>
-                
-                <div style="display: flex; gap: 0.5rem; align-items: center;">
-                    <span style="color: var(--color-text-secondary); font-size: var(--fs-sm);">Min Liquidity:</span>
-                    <select class="filter-select" data-filter="minLiquidity">
-                        <option value="5000">$5K+</option>
-                        <option value="10000">$10K+</option>
-                        <option value="50000">$50K+</option>
-                    </select>
-                </div>
-                
-                <div style="display: flex; gap: 0.5rem; align-items: center;">
-                    <span style="color: var(--color-text-secondary); font-size: var(--fs-sm);">Risk:</span>
-                    <select class="filter-select" data-filter="risk">
-                        <option value="all">All</option>
-                        <option value="safe">Safe only</option>
-                        <option value="medium">Medium & Safe</option>
-                    </select>
-                </div>
-
-                <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: var(--fs-sm);" onclick="location.reload()">
-                    🔄 Refresh
-                </button>
-            </div>
-        </div>
-
-        <!-- Stats Bar -->
-        <div style="display: flex; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap; padding: 1rem; background: rgba(20, 27, 61, 0.4); border-radius: var(--radius-md); border: var(--border-default);">
-            <div class="tooltip" style="display: flex; align-items: center; gap: 0.5rem; color: var(--color-text-secondary);">
-                <span class="live-indicator"></span>
-                <span>Live</span>
-                <span class="tooltip-text">Real-time updates every 30 seconds</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--color-text-secondary);">
-                <span>New today:</span>
-                <span style="color: #fff; font-weight: 600; font-size: 1.1rem;">234</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--color-text-secondary);">
-                <span>Total scans:</span>
-                <span style="color: #fff; font-weight: 600; font-size: 1.1rem;">1,234</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--color-text-secondary);">
-                <span>Active holders:</span>
-                <span style="color: #fff; font-weight: 600; font-size: 1.1rem;">3.2K</span>
-            </div>
-            <div style="margin-left: auto;">
-                <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: var(--fs-sm);" onclick="window.location.href='v2advertise.html'">
-                    📢 Advertise
-                </button>
-            </div>
-        </div>
-
-        <!-- Feed Header -->
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-            <h2 style="font-size: var(--fs-2xl); font-weight: 700;">🆕 New Tokens</h2>
-            <div style="color: var(--color-text-secondary); font-size: var(--fs-sm);">
-                <span id="token-count">Loading...</span>
-            </div>
-        </div>
-
-        <!-- Token Feed -->
-        <div id="token-feed">
-            <!-- Populated by JavaScript -->
-            <div style="text-align: center; padding: 3rem;">
-                <div class="spinner" style="margin: 0 auto;"></div>
-                <p style="margin-top: 1rem; color: var(--color-text-secondary);">Loading tokens...</p>
-            </div>
-        </div>
-
-        <!-- Load More -->
-        <div style="text-align: center; margin-top: 2rem;">
-            <button class="btn btn-secondary" id="load-more" style="display: none;">
-                Load More Tokens
-            </button>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="/CobieDex/script.js" defer></script>
-    <script>
-        // Update token count after render
-        setTimeout(() => {
-            const count = document.querySelectorAll('.token-card:not(.promoted)').length;
-            document.getElementById('token-count').textContent = `${count} tokens found`;
-            document.getElementById('load-more').style.display = 'block';
-        }, 1000);
-
-        // Search functionality
-        let searchTimeout;
-        document.getElementById('dashboard-search').addEventListener('input', (e) => {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => {
-                const query = e.target.value.toLowerCase();
-                document.querySelectorAll('.token-card').forEach(card => {
-                    const name = card.textContent.toLowerCase();
-                    card.style.display = name.includes(query) ? 'block' : 'none';
-                });
-            }, 300);
-        });
-
-        // Load more functionality
-        document.getElementById('load-more').addEventListener('click', () => {
-            const btn = document.getElementById('load-more');
-            btn.innerHTML = '<span class="spinner" style="width: 20px; height: 20px; border-width: 2px;"></span> Loading...';
-            btn.disabled = true;
-            
-            setTimeout(() => {
-                // Simulate loading more tokens
-                btn.textContent = 'Load More Tokens';
-                btn.disabled = false;
-                window.CobieDex.showNotification('All tokens loaded', 'info');
-            }, 1500);
-        });
-
-        // URL parameter handling
-        const urlParams = new URLSearchParams(window.location.search);
-        const searchQuery = urlParams.get('search');
-        if (searchQuery) {
-            document.getElementById('dashboard-search').value = searchQuery;
-            document.getElementById('dashboard-search').dispatchEvent(new Event('input'));
-        }
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            // Ctrl/Cmd + K to focus search
-            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-                e.preventDefault();
-                document.getElementById('dashboard-search').focus();
-            }
-            
-            // ESC to clear search
-            if (e.key === 'Escape') {
-                document.getElementById('dashboard-search').value = '';
-                document.getElementById('dashboard-search').dispatchEvent(new Event('input'));
-            }
-        });
-
-        // Show keyboard shortcut hint
-        const searchInput = document.getElementById('dashboard-search');
-        if (navigator.platform.indexOf('Mac') > -1) {
-            searchInput.placeholder = 'Search tokens... (⌘K)';
-        } else {
-            searchInput.placeholder = 'Search tokens... (Ctrl+K)';
-        }
-    </script>
-</body>
-</html>
+                <div class="tab
