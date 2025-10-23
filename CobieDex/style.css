@@ -122,6 +122,20 @@ button {
   align-items: center;
 }
 
+.logo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #8a2be2;
+  animation: pulseLogo 3s infinite ease-in-out;
+}
+
+@keyframes pulseLogo {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.9; }
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -137,13 +151,13 @@ button {
 .logo-icon {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   border-radius: var(--radius-md);
+  overflow: hidden; /* sorgt dafür, dass das GIF rund bleibt */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
 }
+
 
 .logo-text h1 {
   font-size: var(--fs-2xl);
