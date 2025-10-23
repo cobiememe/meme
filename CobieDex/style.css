@@ -2,20 +2,6 @@
    CobieDex - Centralized Stylesheet
    ======================================== */
 
-.logo-icon img {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 0 10px #8a2be2;
-  animation: pulseLogo 3s infinite ease-in-out;
-}
-
-@keyframes pulseLogo {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.1); opacity: 0.9; }
-}
-
 /* CSS Variables / Design Tokens */
 :root {
   /* Colors */
@@ -641,3 +627,18 @@ button {
 
 .cursor-pointer { cursor: pointer; }
 .cursor-help { cursor: help; }
+
+
+.logo-icon img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 10px #8a2be2;
+  animation: pulseLogo 3s infinite ease-in-out;
+}
+
+@keyframes pulseLogo {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.9; }
+}
