@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CobieDex - Discover new Solana tokens with advanced rug-pull detection. Real-time tracking and analytics for SOL traders.">
+    <title>CobieDex - Solana Token Scanner & Analytics</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <div class="logo-icon">🟣</div>
+            <div class="logo-text">
+                <h1>CobieDex</h1>
+                <p>by <a href="https://cobie.uk" target="_blank" style="color: #8b5cf6;">Cobie.uk</a></p>
+            </div>
+        </div>
+        <div class="header-right">
+            <button id="wallet-btn" class="btn btn-primary">
+                🔗 Connect Wallet
+            </button>
+            <div id="wallet-info" class="wallet-info" style="display: none;"></div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="container">
+        <section style="text-align: center; padding: 6rem 0 4rem;">
+            <h1 style="font-size: var(--fs-h1); font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, #ffffff, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Discover New Solana Gems
+            </h1>
+            <p style="font-size: var(--fs-lg); color: var(--color-text-secondary); margin-bottom: 2rem;">
+                Real-time token tracking with advanced rug-pull detection
+            </p>
+            
+            <!-- Feature Pills -->
+            <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 3rem; flex-wrap: wrap;">
+                <div class="tooltip" style="display: flex; align-items: center; gap: 0.5rem; color: var(--color-text-secondary);">
+                    <span style="font-size: 1.5rem;">⚡</span>
+                    <span>Live Updates</span>
+                    <span class="tooltip-text">Real-time token data every 30 seconds</span>
+                </div>
+                <div class="tooltip" style="display: flex; align-items: center; gap: 0.5rem; color: var(--color-text-secondary);">
+                    <span style="font-size: 1.5rem;">🛡️</span>
+                    <span>Risk Analysis</span>
+                    <span class="tooltip-text">Advanced rug-pull detection algorithm</span>
+                </div>
+                <div class="tooltip" style="display: flex; align-items: center; gap: 0.5rem; color: var(--color-text-secondary);">
+                    <span style="font-size: 1.5rem;">🔍</span>
+                    <span>Smart Scanning</span>
+                    <span class="tooltip-text">Automatic detection of new tokens</span>
+                </div>
+            </div>
+
+            <!-- Search Box -->
+            <div style="max-width: 600px; margin: 0 auto 3rem; position: relative;">
+                <input 
+                    type="text" 
+                    id="hero-search"
+                    placeholder="Search tokens by name or address..."
+                    style="width: 100%; padding: 1.25rem 3rem 1.25rem 1.5rem; background: rgba(20, 27, 61, 0.8); border: 2px solid rgba(99, 102, 241, 0.3); border-radius: 15px; color: white; font-size: 1.1rem; transition: all 0.3s ease;"
+                    onfocus="this.style.borderColor='var(--color-primary)'; this.style.boxShadow='0 0 0 4px rgba(99, 102, 241, 0.1)'"
+                    onblur="this.style.borderColor='rgba(99, 102, 241, 0.3)'; this.style.boxShadow='none'"
+                >
+                <span style="position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: var(--color-primary);">🔍</span>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 4rem;">
+                <button class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;" onclick="document.getElementById('wallet-btn').click()">
+                    🚀 Explore Tokens Now
+                </button>
+                <button class="btn btn-outline" style="font-size: 1.1rem; padding: 1rem 2rem;" onclick="window.location.href='advertise.html'">
+                    📢 Advertise Your Token
+                </button>
+            </div>
+        </section>
+
+        <!-- Trending Tokens Carousel -->
+        <section style="margin-bottom: 4rem;">
+            <h2 style="font-size: var(--fs-h2); font-weight: 700; text-align: center; margin-bottom: 2rem;">
+                🔥 Trending Now
+            </h2>
+            <div id="trending-carousel" style="display: flex; gap: 1.5rem; overflow-x: auto; padding: 1rem 0; scroll-snap-type: x mandatory;">
+                <!-- Populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section class="grid-auto" style="margin-bottom: 4rem;">
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🚨</div>
+                <h3 style="font-size: var(--fs-xl); margin-bottom: 0.75rem;">Rug-Pull Detection</h3>
+                <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                    Advanced algorithms analyze token contracts, liquidity locks, and holder distribution to protect you from scams
+                </p>
+            </div>
+            
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                <h3 style="font-size: var(--fs-xl); margin-bottom: 0.75rem;">Real-Time Alerts</h3>
+                <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                    Get instant notifications when new tokens launch or when your watchlist tokens hit specific price targets
+                </p>
+            </div>
+            
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+                <h3 style="font-size: var(--fs-xl); margin-bottom: 0.75rem;">Deep Analytics</h3>
+                <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                    Comprehensive token data including holder stats, liquidity info, creator holdings, and trading volume
+                </p>
+            </div>
+            
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">👥</div>
+                <h3 style="font-size: var(--fs-xl); margin-bottom: 0.75rem;">Smart Money Tracking</h3>
+                <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                    Follow successful wallets and see what tokens experienced traders are buying
+                </p>
+            </div>
+            
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🎯</div>
+                <h3 style="font-size: var(--fs-xl); margin-bottom: 0.75rem;">Token-Gated Access</h3>
+                <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                    Exclusive platform access for COBIE token holders. Your key to premium Solana insights
+                </p>
+            </div>
+            
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🔥</div>
+                <h3 style="font-size: var(--fs-xl); margin-bottom: 0.75rem;">Trending Tokens</h3>
+                <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                    Discover what's hot on Solana before everyone else with our trending algorithm
+                </p>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section style="background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); border-radius: var(--radius-xl); padding: 3rem; text-align: center; margin-bottom: 4rem;">
+            <h2 style="font-size: var(--fs-h2); font-weight: 800; margin-bottom: 1rem;">
+                Ready to Start Trading Smarter?
+            </h2>
+            <p style="font-size: var(--fs-lg); margin-bottom: 2rem; opacity: 0.9;">
+                Hold 1,000 COBIE tokens to unlock exclusive access
+            </p>
+            <button class="btn" style="background: white; color: var(--color-primary); padding: 1.25rem 3rem; font-size: 1.2rem; font-weight: 700;" onclick="document.getElementById('wallet-btn').click()">
+                Connect Wallet & Start
+            </button>
+        </section>
+
+        <!-- Stats Section -->
+        <section style="text-align: center; padding: 3rem 0; border-top: var(--border-default); margin-bottom: 2rem;">
+            <div style="display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;">
+                <div>
+                    <div style="font-size: var(--fs-4xl); font-weight: 800; color: var(--color-primary);">234</div>
+                    <div style="color: var(--color-text-secondary);">New Tokens Today</div>
+                </div>
+                <div>
+                    <div style="font-size: var(--fs-4xl); font-weight: 800; color: var(--color-primary);">1.2K</div>
+                    <div style="color: var(--color-text-secondary);">Active Traders</div>
+                </div>
+                <div>
+                    <div style="font-size: var(--fs-4xl); font-weight: 800; color: var(--color-primary);">$2.3M</div>
+                    <div style="color: var(--color-text-secondary);">24h Volume</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="text-align: center; padding: 3rem 0; color: var(--color-text-muted); border-top: var(--border-default);">
+            <p>© 2025 CobieDex by <a href="https://cobie.uk" target="_blank" style="color: var(--color-primary);">Cobie.uk</a> | Solana Token Analytics</p>
+            <p style="margin-top: 0.5rem; font-size: var(--fs-sm);">Always DYOR. Not financial advice.</p>
+            <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 1.5rem;">
+                <a href="#" style="color: var(--color-text-secondary); transition: color 0.3s;" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color='var(--color-text-secondary)'">Twitter</a>
+                <a href="#" style="color: var(--color-text-secondary); transition: color 0.3s;" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color='var(--color-text-secondary)'">Telegram</a>
+                <a href="#" style="color: var(--color-text-secondary); transition: color 0.3s;" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color='var(--color-text-secondary)'">Discord</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/app.js"></script>
+    <script>
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+            #trending-carousel::-webkit-scrollbar {
+                height: 8px;
+            }
+            #trending-carousel::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+            }
+            #trending-carousel::-webkit-scrollbar-thumb {
+                background: var(--color-primary);
+                border-radius: 10px;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Search functionality
+        document.getElementById('hero-search').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const query = e.target.value;
+                if (query) {
+                    window.location.href = `dashboard.html?search=${encodeURIComponent(query)}`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

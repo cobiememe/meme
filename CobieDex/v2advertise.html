@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Advertise your Solana token on CobieDex. Pay with COBIE tokens and reach thousands of active traders.">
+    <title>Advertise Your Token | CobieDex</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo" onclick="window.location.href='v2-index.html'">
+            <div class="logo-icon">🟣</div>
+            <div class="logo-text">
+                <h1>CobieDex</h1>
+                <p>by <a href="https://cobie.uk" target="_blank" style="color: #8b5cf6;">Cobie.uk</a></p>
+            </div>
+        </div>
+        <div class="header-right">
+            <button class="btn btn-secondary" onclick="window.location.href='v2-dashboard.html'">
+                Back to Dashboard
+            </button>
+        </div>
+    </header>
+
+    <!-- Container -->
+    <div class="container">
+        <!-- Hero -->
+        <section style="text-align: center; padding: 3rem 0;">
+            <h1 style="font-size: var(--fs-h1); font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, #ffffff, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                🎯 Advertise Your Token
+            </h1>
+            <p style="font-size: var(--fs-xl); color: var(--color-text-secondary); margin-bottom: 2rem;">
+                Reach thousands of active Solana traders. Pay with COBIE tokens.
+            </p>
+            
+            <!-- Stats -->
+            <div style="display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+                <div class="tooltip">
+                    <div style="font-size: var(--fs-3xl); font-weight: 800; color: var(--color-primary);">3.2K+</div>
+                    <div style="color: var(--color-text-secondary);">Active Users</div>
+                    <span class="tooltip-text">Daily active COBIE holders</span>
+                </div>
+                <div class="tooltip">
+                    <div style="font-size: var(--fs-3xl); font-weight: 800; color: var(--color-primary);">234</div>
+                    <div style="color: var(--color-text-secondary);">New Tokens/Day</div>
+                    <span class="tooltip-text">Average tokens scanned daily</span>
+                </div>
+                <div class="tooltip">
+                    <div style="font-size: var(--fs-3xl); font-weight: 800; color: var(--color-primary);">$2.3M</div>
+                    <div style="color: var(--color-text-secondary);">Daily Volume</div>
+                    <span class="tooltip-text">Total trading volume from our users</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROI Calculator -->
+        <div class="card" style="max-width: 800px; margin: 0 auto 3rem; padding: 2rem;">
+            <h2 class="card-title">🧮 ROI Calculator</h2>
+            <p style="color: var(--color-text-secondary); margin-bottom: 2rem;">
+                Calculate your potential return on investment
+            </p>
+            
+            <div class="grid-2" style="margin-bottom: 1.5rem;">
+                <div>
+                    <label style="display: block; color: var(--color-text-secondary); margin-bottom: 0.5rem; font-size: var(--fs-sm);">Daily Ad Budget (COBIE)</label>
+                    <input type="number" id="ad-budget" value="500" min="100" max="10000" style="width: 100%; padding: 0.75rem; background: rgba(10, 14, 39, 0.8); border: var(--border-primary); border-radius: var(--radius-sm); color: white; font-size: var(--fs-base);">
+                </div>
+                <div>
+                    <label style="display: block; color: var(--color-text-secondary); margin-bottom: 0.5rem; font-size: var(--fs-sm);">Campaign Days</label>
+                    <input type="number" id="campaign-days" value="7" min="1" max="30" style="width: 100%; padding: 0.75rem; background: rgba(10, 14, 39, 0.8); border: var(--border-primary); border-radius: var(--radius-sm); color: white; font-size: var(--fs-base);">
+                </div>
+            </div>
+            
+            <div class="grid-2" style="gap: 2rem;">
+                <div class="stat-box">
+                    <div class="stat-label">Total Cost</div>
+                    <div class="stat-value" id="total-cost">3,500 COBIE</div>
+                    <div style="font-size: var(--fs-sm); color: var(--color-text-muted); margin-top: 0.5rem;" id="total-cost-usd">≈ $350 USD</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Est. Impressions</div>
+                    <div class="stat-value" id="est-impressions">1,400,000</div>
+                    <div style="font-size: var(--fs-sm); color: var(--color-text-muted); margin-top: 0.5rem;">200K per day</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Est. Clicks (2% CTR)</div>
+                    <div class="stat-value" id="est-clicks">28,000</div>
+                    <div style="font-size: var(--fs-sm); color: var(--color-text-muted); margin-top: 0.5rem;">4,000 per day</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Cost Per Click</div>
+                    <div class="stat-value" id="cpc">$0.0125</div>
+                    <div style="font-size: var(--fs-sm); color: var(--color-success); margin-top: 0.5rem;">Excellent CPC!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing Cards -->
+        <section style="margin-bottom: 3rem;">
+            <h2 style="font-size: var(--fs-h2); font-weight: 700; text-align: center; margin-bottom: 2rem;">
+                💰 Choose Your Plan
+            </h2>
+            
+            <div class="grid-3">
+                <!-- Basic -->
+                <div class="card" style="transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='rgba(99, 102, 241, 0.5)'" onmouseout="this.style.transform=''; this.style.borderColor='rgba(255, 255, 255, 0.1)'">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🥉</div>
+                    <h3 style="font-size: var(--fs-2xl); font-weight: 700; margin-bottom: 0.5rem;">BASIC</h3>
+                    <div style="font-size: var(--fs-4xl); font-weight: 800; margin-bottom: 0.5rem; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                        100 COBIE
+                    </div>
+                    <div style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">per day</div>
+                    
+                    <ul style="list-style: none; margin-bottom: 2rem;">
+                        <li style="padding: 0.75rem 0; border-bottom: var(--border-default); display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--color-success); font-weight: bold;">✓</span>
+                            <span>Banner on Token Pages</span>
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: var(--border-default); display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--color-success); font-weight: bold;">✓</span>
+                            <span>50K Impressions/Day</span>
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: var(--border-default); display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--color-success); font-weight: bold;">✓</span>
+                            <span>Basic Tracking</span>
+                        </li>
+                        <li style="padding: 0.75rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--color-success); font-weight: bold;">✓</span>
+                            <span>24h Support</span>
+                        </li>
+                    </ul>
+                    
+                    <button class="btn btn-outline w-full" onclick="startAdvertising('basic', 100)">
+                        Get Started
+                    </button>
+                </div>
+
+                <!-- Featured -->
+                <div class="card" style="border: 2px solid rgba(139, 92, 246, 0.8); background: rgba(139, 92, 246, 0.1); position: relative; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 15px 40px rgba(99, 102, 241, 0.3)'" onmouseout="this.style.transform=''; this.style.boxShadow=''">
+                    <div style="position: absolute; top: 1rem; right: 1rem; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); padding: 0.5rem 1rem; border-radius: 20px; font-size: var(--fs-xs); font-weight: 700;">
+                        🔥 POPULAR
+                    </div>
+                    
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🥈</div>
+                    <h3 style="font-size: var(--fs-2xl); font-weight: 700; margin-bottom: 0.5rem;">FEATURED</h3>
+                    <div style="font-size: var(--fs-4xl); font-weight: 800; margin-bottom: 0.5rem; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                        500 COBIE
+                    </div>
+                    <div style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">per day</div>
+                    
+                    <ul style="list-style: none; margin-bottom: 2rem;">
+                        <li style="padding: 0.75rem 0; border-bottom: var(--border-default); display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--color-success); font-weight: bold;">✓</span>
+                            <span>Featured Section Placement</span>
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: var(--border-default); display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--color-success); font-weight: bold;">✓</span>
+                            <span>Highlighted in Feed</span>
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: var(--border-default); display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--color-success); font-weight: bold;">✓</span>
+                            <span>"Promoted" Badge</span>
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: var(--border-default); display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--color-success); font-weight: bold;">✓</span>
+                            <span>200K Impressions/Day</span>
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: var(--border-default); display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--color-success); font-weight: bold;">✓</span>
+                            <span>Advanced Analytics</span>
+                        </li>
+                        <li style="padding: 0.75rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--color-success); font-weight: bold;">✓</span>
+                            <span>Priority Support</span>
+                        </li>
+                    </ul>
+                    
+                    <button class="btn btn-primary w-full" onclick="startAdvertising('featured', 500)">
+                        Get Featured
+                    </button>
+                </div>
+
+                <!-- Premium -->
+                <div class="card" style="transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='rgba(99, 102, 241, 0.5)'" onmouseout="this.style.transform=''; this.style.borderColor='rgba(255, 255, 255, 0.1)'">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🥇</div>
+                    <h3 style="font-size: var(--fs-2xl); font-weight: 700; margin-bottom: 0.5rem;">PREMIUM</h3>
+                    <div style="font-size: var(--fs-4xl); font-weight: 800; margin-bottom: 0.5rem; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                        1,000 COBIE
+                    </div>
+                    <div style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">per day</div>
+                    
+                    <ul style="list-style: none; margin-bottom: 2rem;">
+                        <li style="padding: 0.75rem 0; border-bottom: var(--border-default); display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--color-success); font-weight: bold;">✓</span>
+                            <span>Top Banner on Homepage</span>
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: var(--border-default); display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--color-success); font-weight: bold;">✓</span>
+                            <span>Custom Landing Page</span>
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: var(--border-default); display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--color-success); font-weight: bold;">✓</span>
+                            <span>Push Notifications</span>
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: var(--border-default); display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--color-success); font-weight: bold;">✓</span>
+                            <span>Newsletter Feature</span>
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: var(--border-default); display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--color-success); font-weight: bold;">✓</span>
+                            <span>Unlimited Impressions</span>
+                        </li>
+                        <li style="padding: 0.75rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="color: var(--color-success); font-weight: bold;">✓</span>
+                            <span>Dedicated Account Manager</span>
+                        </li>
+                    </ul>
+                    
+                    <button class="btn btn-primary w-full" onclick="startAdvertising('premium', 1000)">
+                        Go Premium
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ad Preview -->
+        <section class="card" style="padding: 3rem; margin-bottom: 3rem;">
+            <h2 style="font-size: var(--fs-h2); font-weight: 700; text-align: center; margin-bottom: 2rem;">
+                📱 Your Ad Preview
+            </h2>
+            
+            <div style="max-width: 600px; margin: 0 auto; background: rgba(10, 14, 39, 0.8); border: 2px solid rgba(139, 92, 246, 0.5); border-radius: var(--radius-lg); padding: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <span class="badge badge-promoted">🎯 PROMOTED</span>
+                    <span style="color: var(--color-text-muted); font-size: var(--fs-sm);">Paid with COBIE</span>
+                </div>
+                
+                <div style="text-align: center; padding: 2rem;">
+                    <h3 style="font-size: var(--fs-3xl); font-weight: 800; margin-bottom: 1rem;">🚀 YOUR PROJECT HERE</h3>
+                    <p style="color: var(--color-text-secondary); font-size: var(--fs-lg); margin-bottom: 2rem;">
+                        Your custom message to thousands of active traders
+                    </p>
+                    
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <button class="btn btn-primary">Learn More</button>
+                        <button class="btn btn-secondary">Trade Now</button>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: var(--border-default); color: var(--color-text-muted); font-size: var(--fs-sm);">
+                    Seen by thousands of active Solana traders daily
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section style="margin-bottom: 3rem;">
+            <h2 style="font-size: var(--fs-h2); font-weight: 700; text-align: center; margin-bottom: 2rem;">
+                💬 Success Stories
+            </h2>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 2rem;">👤</div>
+                        <div>
+                            <div style="font-weight: 700;">@SolWhale</div>
+                            <div style="color: var(--color-text-secondary); font-size: var(--fs-sm);">MOON Token Creator</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        "CobieDex helped us reach 1,000+ holders in just 3 days! The targeting is amazing - only serious traders see your token."
+                    </p>
+                    <div style="margin-top: 1rem; color: var(--color-warning);">★★★★★</div>
+                </div>
+                
+                <div class="card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 2rem;">👤</div>
+                        <div>
+                            <div style="font-weight: 700;">@DeFiKing</div>
+                            <div style="color: var(--color-text-secondary); font-size: var(--fs-sm);">PEPE 2.0 Marketing</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        "Best ROI we've seen! $500 in COBIE got us $50K in volume. The COBIE holders are real traders, not bots."
+                    </p>
+                    <div style="margin-top: 1rem; color: var(--color-warning);">★★★★★</div>
+                </div>
+                
+                <div class="card">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 2rem;">👤</div>
+                        <div>
+                            <div style="font-weight: 700;">@CryptoQueen</div>
+                            <div style="color: var(--color-text-secondary); font-size: var(--fs-sm);">DOGE 3.0 Team</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        "Super easy to set up. Connected wallet, paid in COBIE, live in 5 minutes. Analytics dashboard is fire 🔥"
+                    </p>
+                    <div style="margin-top: 1rem; color: var(--color-warning);">★★★★★</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits -->
+        <section class="grid-auto" style="margin-bottom: 3rem;">
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">👥</div>
+                <h3 style="font-size: var(--fs-xl); margin-bottom: 0.75rem;">Targeted Audience</h3>
+                <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                    Reach active Solana traders who hold COBIE tokens - no bots, real users only
+                </p>
+            </div>
+            
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                <h3 style="font-size: var(--fs-xl); margin-bottom: 0.75rem;">Instant Activation</h3>
+                <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                    Your ad goes live within 5 minutes of payment confirmation
+                </p>
+            </div>
+            
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+                <h3 style="font-size: var(--fs-xl); margin-bottom: 0.75rem;">Real Analytics</h3>
+                <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                    Track impressions, clicks, and conversions in real-time dashboard
+                </p>
+            </div>
+            
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🔥</div>
+                <h3 style="font-size: var(--fs-xl); margin-bottom: 0.75rem;">Token Burn</h3>
+                <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                    50% of paid COBIE is burned, increasing value for all holders
+                </p>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section style="background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); border-radius: var(--radius-xl); padding: 3rem; text-align: center;">
+            <h2 style="font-size: var(--fs-h2); font-weight: 800; margin-bottom: 1rem;">
+                Ready to Promote Your Token?
+            </h2>
+            <p style="font-size: var(--fs-lg); margin-bottom: 2rem; opacity: 0.9;">
+                Join hundreds of projects advertising on CobieDex
+            </p>
+            <button class="btn" style="background: white; color: var(--color-primary); padding: 1.25rem 3rem; font-size: 1.2rem; font-weight: 700;" onclick="document.getElementById('wallet-btn') ? document.getElementById('wallet-btn').click() : window.CobieDex.connectWallet()">
+                🔗 Connect Wallet & Start
+            </button>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/app.js"></script>
+    <script>
+        // ROI Calculator
+        function updateROI() {
+            const budget = parseInt(document.getElementById('ad-budget').value) || 500;
+            const days = parseInt(document.getElementById('campaign-days').value) || 7;
+            const cobieToUSD = 0.1; // Mock conversion rate
+            
+            const totalCost = budget * days;
+            const totalCostUSD = totalCost * cobieToUSD;
+            const impressions = totalCost * 400; // 400 impressions per COBIE
+            const clicks = impressions * 0.02; // 2% CTR
+            const cpc = totalCostUSD / clicks;
+            
+            document.getElementById('total-cost').textContent = `${totalCost.toLocaleString()} COBIE`;
+            document.getElementById('total-cost-usd').textContent = `≈ $${totalCostUSD.toFixed(0)} USD`;
+            document.getElementById('est-impressions').textContent = impressions.toLocaleString();
+            document.getElementById('est-clicks').textContent = Math.round(clicks).toLocaleString();
+            document.getElementById('cpc').textContent = `$${cpc.toFixed(4)}`;
+        }
+        
+        document.getElementById('ad-budget').addEventListener('input', updateROI);
+        document.getElementById('campaign-days').addEventListener('input', updateROI);
+        
+        // Start Advertising Flow
+        function startAdvertising(tier, cobieAmount) {
+            const steps = [
+                'Select your plan',
+                'Connect wallet',
+                'Confirm payment',
+                'Create your ad',
+                'Go live!'
+            ];
+            
+            let currentStep = 0;
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+                padding: 2rem;
+            `;
+            
+            const content = document.createElement('div');
+            content.style.cssText = `
+                background: linear-gradient(135deg, #141b3d, #1a1042);
+                border: 1px solid rgba(99, 102, 241, 0.5);
+                border-radius: 20px;
+                padding: 3rem;
+                max-width: 500px;
+                width: 100%;
+                text-align: center;
+            `;
+            
+            content.innerHTML = `
+                <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem; color: white;">
+                    ${tier.toUpperCase()} Plan Selected
+                </h2>
+                <p style="color: #94a3b8; margin-bottom: 2rem;">
+                    ${cobieAmount} COBIE per day
+                </p>
+                <div style="margin-bottom: 2rem;">
+                    <div style="font-size: 1.5rem; margin-bottom: 1rem;">Step ${currentStep + 1}/${steps.length}</div>
+                    <div style="color: #6366f1; font-weight: 600; font-size: 1.1rem;">${steps[currentStep]}</div>
+                </div>
+                <button class="btn btn-primary w-full" onclick="this.closest('div').parentElement.remove(); window.CobieDex.showNotification('Advertising flow coming soon!', 'info')">
+                    Continue
+                </button>
+                <button class="btn btn-secondary w-full" style="margin-top: 1rem;" onclick="this.closest('div').parentElement.remove()">
+                    Cancel
+                </button>
+            `;
+            
+            modal.appendChild(content);
+            document.body.appendChild(modal);
+            
+            // Click outside to close
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
