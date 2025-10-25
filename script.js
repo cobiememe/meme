@@ -344,32 +344,44 @@ function triggerCobieChaos() {
     "img/1saitama.png","img/1satoshiN.png","img/1uuuuu.png"
   ];
 
+  // Bilder zufällig mischen
+  const shuffledImages = [...images].sort(() => Math.random() - 0.5);
+
   const container = document.createElement("div");
   container.classList.add("fall-container");
   document.body.appendChild(container);
 
-  images.forEach((src, i) => {
+  // 8-12 zufällige Bilder auswählen
+  const imageCount = 8 + Math.floor(Math.random() * 5); // 8-12 Bilder
+  const selectedImages = shuffledImages.slice(0, imageCount);
+
+  selectedImages.forEach((src, i) => {
     const img = document.createElement("img");
     img.src = src;
     img.classList.add("falling");
     container.appendChild(img);
 
-    let topOffset = 0;
-    if (i < 4) topOffset = 30; // obere Reihe
-    else if (i < 8) topOffset = 250; // mittlere Reihe
-    else topOffset = 450; // untere Reihe
+    // Zufällige Werte
+    const randomLeft = Math.random() * (window.innerWidth - 150);
+    const randomDelay = Math.random() * 4; // 0-4 Sekunden Verzögerung
+    const randomDuration = 2 + Math.random() * 3; // 2-5 Sekunden Fallzeit
+    const randomSize = 100 + Math.random() * 80; // 100-180px Größe
+    const randomRotation = (Math.random() - 0.5) * 30; // -15 bis +15 Grad Rotation
 
-    img.style.top = `${topOffset}px`;
-    img.style.left = `${20 + i * 100}px`;
-    img.style.animationDelay = (Math.random() * 1.5) + "s";
+    img.style.left = `${randomLeft}px`;
+    img.style.width = `${randomSize}px`;
+    img.style.animationDelay = `${randomDelay}s`;
+    img.style.animationDuration = `${randomDuration}s`;
+    img.style.setProperty('--start-rotate', `${-randomRotation}deg`);
+    img.style.setProperty('--end-rotate', `${randomRotation}deg`);
   });
 
-  // Optional: nach 10 Sekunden alles wieder aufräumen
+  // Nach 8 Sekunden aufräumen
   setTimeout(() => {
     document.body.classList.remove("shake-body");
     container.remove();
     chaosTriggered = false;
-  }, 10000);
+  }, 8000);
 }
 
 console.log('✅ All systems loaded. The hunt begins...');

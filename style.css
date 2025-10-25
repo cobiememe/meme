@@ -585,15 +585,25 @@ h1 {
 
 .falling {
   position: absolute;
-  width: 80px;
-  height: 128px;
+  height: auto;
   opacity: 0;
-  animation: dropIn 2.5s ease forwards;
-  margin: 20px;
+  animation: dropIn var(--duration, 4s) ease-in forwards;
+  animation-delay: var(--delay, 0s);
 }
 
 @keyframes dropIn {
-  0% { transform: translateY(-150px) rotate(0deg); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: translateY(40px) rotate(10deg); opacity: 1; }
+  0% { 
+    transform: translateY(-200px) rotate(var(--start-rotate, -10deg)); 
+    opacity: 0; 
+  }
+  10% { 
+    opacity: 1; 
+  }
+  90% { 
+    opacity: 0.8; 
+  }
+  100% { 
+    transform: translateY(100vh) rotate(var(--end-rotate, 10deg)); 
+    opacity: 0; 
+  }
 }
