@@ -8,8 +8,11 @@ function enableSound() {
   document.getElementById("sound-activate").style.display = "none";
   window.soundEnabled = true;
   
-  // Optional: Play a welcome sound
-  hoverSound.play().catch(e => console.log('Audio blocked:', e));
+  // NEU: Sound sofort vorbereiten für Hover
+  hoverSound.play().then(() => {
+    hoverSound.pause();
+    hoverSound.currentTime = 0;
+  }).catch(e => console.log('Audio blocked:', e));
 }
 
 // ===== SECRET TRACKING SYSTEM =====
