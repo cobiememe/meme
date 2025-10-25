@@ -3,220 +3,153 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cobie Meme - The Legendary 2025 Meme</title>
+  <title>My Meme</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ✨ Neue Social Buttons oben links */
+    .social-buttons {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      display: flex;
+      gap: 10px;
+      z-index: 9999;
+    }
+    .social-buttons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(4px);
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .social-buttons a:hover {
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.1);
+    }
+    .social-buttons img {
+      width: 22px;
+      height: 22px;
+    }
+  </style>
 </head>
 <body>
 
   <!-- 🔗 Social Buttons -->
   <div class="social-buttons">
     <a href="https://x.com/Cobie_meme" target="_blank" title="X / Twitter">
-      <img src="../img/X.png" alt="X Logo" />
+      <img src="img/x-logo.png" alt="X Logo" />
     </a>
     <a href="https://t.me/cobie_meme" target="_blank" title="Telegram">
-      <img src="../img/telegram.png" alt="Telegram Logo" />
+      <img src="img/telegram-logo.png" alt="Telegram Logo" />
     </a>
   </div>
 
   <!-- 🔊 SOUND ACTIVATION OVERLAY -->
-  <div id="sound-activate" onclick="enableSound()">
-    🔊 Click anywhere to activate sound & experience
+  <div id="sound-activate" onclick="enableSound()" style="
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    cursor: pointer;
+  ">
+    🔊 Click anywhere to activate sound
   </div>
 
-  <!-- 🎯 Secret Hunt Progress Tracker -->
-  <div class="secret-tracker">
-    <span>🔍 Secrets Found: <span id="secrets-found">0</span>/10</span>
-    <span id="achievement-badge"></span>
+  <script>
+    function enableSound() {
+      document.getElementById("sound-activate").style.display = "none";
+      window.soundEnabled = true;
+    }
+    <!-- 🎵 UpOnly Easter-Egg -->
+<audio id="upOnly" src="sounds/UpOnlyCobie.mp3"></audio>
+  </script>
+
+  <!-- HEADER + MAIN MEME -->
+  <h1>👑Welcome to My Meme👑</h1>
+  <div class="main-meme">
+    <img id="cobie" src="img/cobie.jpg" alt="Cobie" width="300" />
+
+    <p>This is the legendary meme of 2025 & Beyond. Hold tight 🚀</p>
+    <p>Sol Adress: 12xxxx🚀</p>
   </div>
 
-  <!-- HEADER -->
-  <h1>👑 Welcome to Cobie Meme 👑</h1>
+  <!-- Meme Grid -->
+  <div class="grid">
+    <a href="https://x.com/cobie" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Twitter Meme">
+    </a>
+    <a href="https://www.youtube.com/watch?v=PAHnjvh5qIU" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Telegram Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret1.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Raydium Meme">
+    </a>
+    <a href="https://www.coingecko.com/" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="CoinGecko Meme">
+    </a>
+    <a href="https://pump.fun/" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="PumpFun Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret2.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Dex Meme">
+    </a>
+    <a href="https://x.com/ledgerstatus" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Twitter Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret3.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Telegram Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret4.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Raydium Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret5.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="CoinGecko Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret6.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="PumpFun Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret7.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Dex Meme">
+    </a>
+    <a href="https://twitter.com/" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Twitter Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret8.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Telegram Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret9.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Raydium Meme">
+    </a>
+    <a href="https://www.youtube.com/watch?v=PAHnjvh5qIU" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="CoinGecko Meme">
+    </a>
+    <a href="https://www.blockchain.com/explorer/addresses/btc/1NiNja1bUmhSoTXozBRBEtR8LeF9TGbZBN" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="PumpFun Meme">
+    </a>
+    <a href="https://www.coingecko.com/en/coins/dogecoin" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Dex Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/3js.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Twitter Meme">
+    </a>
+    <a href="https://www.cobie.uk/secrets/secret10.html" target="_blank">
+      <img class="fx" src="img/twitter-trump.jpg" alt="Telegram Meme">
+    </a>
+  </div>
   
-  <!-- MAIN HERO SECTION -->
-  <div class="hero-section">
-    <div class="main-meme">
-      <img id="cobie" src="img/cobie.jpg" alt="Cobie" width="300" />
-      <h2>The Legendary Meme of 2025 & Beyond</h2>
-      <p class="tagline">Hold tight, this is just the beginning... 🚀</p>
-      
-      <div class="contract-address">
-        <p>Sol Address: <span class="address-text">2NoFmB6ZvqRmqX4BYgQQ297oaYhuurKY9FtYj1mmbRMY</span></p>
-        <button class="copy-btn" onclick="copyAddress()">📋 Copy</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- NAVIGATION TABS -->
-  <div class="nav-tabs">
-    <button class="tab-btn active" onclick="showSection('all')">🌟 All</button>
-    <button class="tab-btn" onclick="showSection('socials')">🔗 Socials</button>
-    <button class="tab-btn" onclick="showSection('secrets')">🔐 Secrets</button>
-    <button class="tab-btn" onclick="showSection('games')">🎮 Games</button>
-    <button class="tab-btn" onclick="showSection('lore')">📜 Lore</button>
-  </div>
-
-  <!-- INTRO TEXT -->
-  <div class="intro-box">
-    <p>🎭 <strong>Welcome to the Hunt!</strong></p>
-    <p>Hidden throughout this page are secrets, games, and easter eggs waiting to be discovered.</p>
-    <p>Each image hides something different - hover over them to feel the mystery, click to unveil...</p>
-    <p class="hint-text">💡 Hint: Not everything is what it seems. Look for patterns, codes, and hidden messages.</p>
-  </div>
-
-  <!-- MYSTERY GRID - Now with Visual Categories -->
-  <div class="grid" id="mystery-grid">
-    
-    <!-- SOCIALS SECTION -->
-    <a href="https://x.com/cobie" target="_blank" class="grid-item socials" data-hint="Official Cobie X">
-      <img class="fx mystery-img" src="img/twitter-trump.jpg" alt="Mystery" data-category="socials">
-      <div class="hover-hint">🐦 Official X Account</div>
-      <div class="category-tag">Social</div>
-    </a>
-
-    <a href="https://www.youtube.com/watch?v=b4_3t6hrPsc" target="_blank" class="grid-item socials" data-hint="Official Music Video">
-      <img class="fx mystery-img" src="img/twitter-trump.jpg" alt="Mystery" data-category="socials">
-      <div class="hover-hint">🎵 Music Video</div>
-      <div class="category-tag">Social</div>
-    </a>
-
-    <a href="https://t.me/cobie_meme" target="_blank" class="grid-item socials" data-hint="Join the Community">
-      <img class="fx mystery-img" src="img/twitter-trump.jpg" alt="Mystery" data-category="socials">
-      <div class="hover-hint">💬 Telegram Community</div>
-      <div class="category-tag">Social</div>
-    </a>
-
-    <!-- SECRET PAGES (10 total) -->
-    <a href="https://www.cobie.uk/secrets/secret1.html" target="_blank" class="grid-item secrets" data-secret="1">
-      <img class="fx mystery-img secret-img" src="img/twitter-trump.jpg" alt="Secret 1" data-category="secrets">
-      <div class="hover-hint">🔐 Secret #1</div>
-      <div class="category-tag secret-tag">Secret</div>
-    </a>
-
-    <a href="https://www.cobie.uk/secrets/secret2.html" target="_blank" class="grid-item secrets" data-secret="2">
-      <img class="fx mystery-img secret-img" src="img/twitter-trump.jpg" alt="Secret 2" data-category="secrets">
-      <div class="hover-hint">🔐 Secret #2</div>
-      <div class="category-tag secret-tag">Secret</div>
-    </a>
-
-    <a href="https://www.cobie.uk/secrets/secret3.html" target="_blank" class="grid-item secrets" data-secret="3">
-      <img class="fx mystery-img secret-img" src="img/twitter-trump.jpg" alt="Secret 3" data-category="secrets">
-      <div class="hover-hint">🔐 Secret #3</div>
-      <div class="category-tag secret-tag">Secret</div>
-    </a>
-
-    <a href="https://www.cobie.uk/secrets/secret4.html" target="_blank" class="grid-item secrets" data-secret="4">
-      <img class="fx mystery-img secret-img" src="img/twitter-trump.jpg" alt="Secret 4" data-category="secrets">
-      <div class="hover-hint">🔐 Secret #4</div>
-      <div class="category-tag secret-tag">Secret</div>
-    </a>
-
-    <a href="https://www.cobie.uk/secrets/secret5.html" target="_blank" class="grid-item secrets" data-secret="5">
-      <img class="fx mystery-img secret-img" src="img/twitter-trump.jpg" alt="Secret 5" data-category="secrets">
-      <div class="hover-hint">🔐 Secret #5</div>
-      <div class="category-tag secret-tag">Secret</div>
-    </a>
-
-    <a href="https://www.cobie.uk/secrets/secret6.html" target="_blank" class="grid-item secrets" data-secret="6">
-      <img class="fx mystery-img secret-img" src="img/twitter-trump.jpg" alt="Secret 6" data-category="secrets">
-      <div class="hover-hint">🔐 Secret #6</div>
-      <div class="category-tag secret-tag">Secret</div>
-    </a>
-
-    <a href="https://www.cobie.uk/secrets/secret7.html" target="_blank" class="grid-item secrets" data-secret="7">
-      <img class="fx mystery-img secret-img" src="img/twitter-trump.jpg" alt="Secret 7" data-category="secrets">
-      <div class="hover-hint">🔐 Secret #7</div>
-      <div class="category-tag secret-tag">Secret</div>
-    </a>
-
-    <a href="https://www.cobie.uk/secrets/secret8.html" target="_blank" class="grid-item secrets" data-secret="8">
-      <img class="fx mystery-img secret-img" src="img/twitter-trump.jpg" alt="Secret 8" data-category="secrets">
-      <div class="hover-hint">🔐 Secret #8</div>
-      <div class="category-tag secret-tag">Secret</div>
-    </a>
-
-    <a href="https://www.cobie.uk/secrets/secret9.html" target="_blank" class="grid-item secrets" data-secret="9">
-      <img class="fx mystery-img secret-img" src="img/twitter-trump.jpg" alt="Secret 9" data-category="secrets">
-      <div class="hover-hint">🔐 Secret #9</div>
-      <div class="category-tag secret-tag">Secret</div>
-    </a>
-
-    <a href="https://www.cobie.uk/secrets/secret10.html" target="_blank" class="grid-item secrets" data-secret="10">
-      <img class="fx mystery-img secret-img" src="img/twitter-trump.jpg" alt="Secret 10" data-category="secrets">
-      <div class="hover-hint">🔐 Secret #10</div>
-      <div class="category-tag secret-tag">Secret</div>
-    </a>
-
-    <!-- GAMES SECTION -->
-    <a href="https://www.cobie.uk/secrets/3js.html" target="_blank" class="grid-item games">
-      <img class="fx mystery-img game-img" src="img/twitter-trump.jpg" alt="3D Game" data-category="games">
-      <div class="hover-hint">🎮 3D Experience</div>
-      <div class="category-tag game-tag">Game</div>
-    </a>
-
-    <!-- LORE / EASTER EGGS -->
-    <a href="https://www.blockchain.com/explorer/addresses/btc/1NiNja1bUmhSoTXozBRBEtR8LeF9TGbZBN" target="_blank" class="grid-item lore">
-      <img class="fx mystery-img lore-img" src="img/twitter-trump.jpg" alt="Bitcoin Mystery" data-category="lore">
-      <div class="hover-hint">₿ Bitcoin Trail</div>
-      <div class="category-tag lore-tag">Lore</div>
-    </a>
-
-    <a href="https://www.coingecko.com/en/coins/dogecoin" target="_blank" class="grid-item lore">
-      <img class="fx mystery-img lore-img" src="img/twitter-trump.jpg" alt="Doge Connection" data-category="lore">
-      <div class="hover-hint">🐕 Doge Connection</div>
-      <div class="category-tag lore-tag">Lore</div>
-    </a>
-
-    <!-- MORE SOCIALS -->
-    <a href="https://www.cobie.uk/secrets/cobiechart.html" target="_blank" class="grid-item socials">
-      <img class="fx mystery-img" src="img/twitter-trump.jpg" alt="CoinGecko" data-category="socials">
-      <div class="hover-hint">🦎 Cobiechart</div>
-      <div class="category-tag">Social</div>
-    </a>
-
-    <a href="https://www.cobie.uk/secrets/GetMemed.html" target="_blank" class="grid-item games">
-      <img class="fx mystery-img game-img" src="img/twitter-trump.jpg" alt="3D Game" data-category="games">
-      <div class="hover-hint">🎮 3D Experience</div>
-      <div class="category-tag game-tag">Game</div>
-    </a>
-
-    <a href="https://x.com/ledgerstatus" target="_blank" class="grid-item lore">
-      <img class="fx mystery-img lore-img" src="img/twitter-trump.jpg" alt="Ledger Mystery" data-category="lore">
-      <div class="hover-hint">🔗 Ledger Mystery</div>
-      <div class="category-tag lore-tag">Lore</div>
-    </a>
-
-    <a href="https://www.cobie.uk/secrets/tracker.html" target="_blank" class="grid-item socials">
-      <img class="fx mystery-img" src="img/twitter-trump.jpg" alt="Twitter" data-category="socials">
-      <div class="hover-hint">🐦 Twitter</div>
-      <div class="category-tag">Social</div>
-    </a>
-
-    <a href="https://www.youtube.com/watch?v=PAHnjvh5qIU" target="_blank" class="grid-item socials">
-      <img class="fx mystery-img" src="img/twitter-trump.jpg" alt="YouTube" data-category="socials">
-      <div class="hover-hint">📺 YouTube</div>
-      <div class="category-tag">Social</div>
-    </a>
-
-  </div>
-
-  <!-- MYSTERY CODE SECTION -->
-  <div class="mystery-code">
-    <p class="code-text">(?)6JJMqnMjd6p3Hpdek8Yf57n18bb2yJTrxwZaSqxHU4cQYH4CKUK(?)</p>
-    <p class="code-hint">🤔 What could this code mean...?</p>
-  </div>
-
-  <!-- FOOTER INFO -->
-  <div class="footer-info">
-    <h3>🎭 About This Project</h3>
-    <p>Cobie Meme is a long-term passion project built on Solana blockchain.</p>
-    <p>This is not a pump & dump - it's a cultural movement being built slowly with love, memes, and mystery.</p>
-    <p>Join the hunt. Find the secrets. Become part of the legend.</p>
-    <br>
-    <p class="small-text">Built with ❤️ for the community | 2025 & Beyond</p>
-  </div>
-
-  <!-- Sound Test Button -->
-  <button class="sound-test-btn" onclick="document.getElementById('test-audio').play()">🔊 Test Sound</button>
+  <p>(?)6JJMqnMjd6p3Hpdek8Yf57n18bb2yJTrxwZaSqxHU4cQYH4CKUK(?) 🚀</p>
+  
+  <!-- Sound Test Button (optional) -->
+  <button onclick="document.getElementById('test-audio').play()">🔊 Test Sound</button>
   <audio id="test-audio" src="sounds/hover.mp3"></audio>
 
   <script src="script.js"></script>
@@ -230,12 +163,5 @@
   <div class="side-text right-scroll">
     <p>This is only the beginning...</p>
   </div>
-
 </body>
-
 </html>
-
-
-
-
-
