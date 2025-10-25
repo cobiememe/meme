@@ -1,13 +1,23 @@
 /* ===== BASIC BODY STYLES ===== */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: sans-serif;
   text-align: center;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  color: #e0e0e0;
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  background: linear-gradient(180deg,
+    #a8e0ff 0%,
+    #ffffff 35%,
+    #e0bbff 70%,
+    #7a00ff 100%
+  );
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #222;
+  transition: background 1s ease;
 }
+
 
 h1 {
   margin-top: 80px;
@@ -557,4 +567,5 @@ h1 {
 .grid-item:nth-child(3) { animation-delay: 0.3s; }
 .grid-item:nth-child(4) { animation-delay: 0.4s; }
 .grid-item:nth-child(5) { animation-delay: 0.5s; }
+
 /* Continue pattern for more items */
