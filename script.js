@@ -1,6 +1,6 @@
 // ===== SOUND SYSTEM (from original) =====
 const hoverSound = new Audio('sounds/hover.mp3');
-hoverSound.volume = 0.01;
+hoverSound.volume = 0.20;
 
 window.soundEnabled = false;
 
@@ -388,3 +388,4 @@ function triggerCobieChaos() {
 }
 
 console.log('✅ All systems loaded. The hunt begins...');
+
