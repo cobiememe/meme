@@ -2,11 +2,25 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #4a1c6b, #6a2c91);
+  background-size: 400% 400%;
   color: #e0e0e0;
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 h1 {
@@ -82,7 +96,7 @@ h1 {
   padding: 12px 20px;
   border-radius: 25px;
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(255,215,0,0.3);
+  border: 2px solid rgba(138, 43, 226, 0.3);
   z-index: 9999;
   font-size: 14px;
   display: flex;
@@ -118,7 +132,7 @@ h1 {
   background: rgba(255,255,255,0.05);
   border-radius: 20px;
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(255,215,0,0.2);
+  border: 2px solid rgba(138, 43, 226, 0.3);
 }
 
 .main-meme h2 {
@@ -149,7 +163,7 @@ h1 {
 .contract-address {
   margin-top: 25px;
   padding: 15px;
-  background: rgba(0,0,0,0.4);
+  background: rgba(74, 28, 107, 0.3);
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -166,8 +180,8 @@ h1 {
 }
 
 .copy-btn {
-  background: rgba(0,212,255,0.3);
-  border: 2px solid #00d4ff;
+  background: rgba(138, 43, 226, 0.3);
+  border: 2px solid #8a2be2;
   color: white;
   padding: 8px 15px;
   border-radius: 8px;
@@ -177,7 +191,7 @@ h1 {
 }
 
 .copy-btn:hover {
-  background: rgba(0,212,255,0.6);
+  background: rgba(138, 43, 226, 0.6);
   transform: scale(1.05);
 }
 
@@ -207,13 +221,13 @@ h1 {
 .tab-btn:hover {
   background: rgba(255,255,255,0.2);
   transform: translateY(-2px);
-  border-color: #00d4ff;
+  border-color: #8a2be2;
 }
 
 .tab-btn.active {
-  background: rgba(0,212,255,0.3);
-  border-color: #00d4ff;
-  box-shadow: 0 0 20px rgba(0,212,255,0.5);
+  background: rgba(138, 43, 226, 0.3);
+  border-color: #8a2be2;
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
 }
 
 /* ===== INTRO BOX ===== */
@@ -221,8 +235,8 @@ h1 {
   max-width: 800px;
   margin: 30px auto;
   padding: 25px;
-  background: rgba(255,215,0,0.1);
-  border: 2px solid rgba(255,215,0,0.3);
+  background: rgba(138, 43, 226, 0.1);
+  border: 2px solid rgba(138, 43, 226, 0.3);
   border-radius: 15px;
   backdrop-filter: blur(10px);
 }
@@ -261,8 +275,8 @@ h1 {
 
 .grid-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(0,212,255,0.4);
-  border-color: rgba(0,212,255,0.6);
+  box-shadow: 0 8px 30px rgba(138, 43, 226, 0.4);
+  border-color: rgba(138, 43, 226, 0.6);
 }
 
 .grid img {
@@ -296,7 +310,7 @@ h1 {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: rgba(0,212,255,0.8);
+  background: rgba(138, 43, 226, 0.8);
   color: white;
   padding: 5px 12px;
   border-radius: 15px;
@@ -378,7 +392,7 @@ h1 {
   padding: 30px;
   max-width: 800px;
   background: rgba(0,0,0,0.5);
-  border: 2px solid rgba(255,215,0,0.3);
+  border: 2px solid rgba(138, 43, 226, 0.3);
   border-radius: 15px;
   backdrop-filter: blur(10px);
 }
@@ -405,7 +419,7 @@ h1 {
   padding: 40px 30px;
   background: rgba(255,255,255,0.05);
   border-radius: 20px;
-  border: 2px solid rgba(255,255,255,0.1);
+  border: 2px solid rgba(138, 43, 226, 0.3);
   backdrop-filter: blur(10px);
 }
 
@@ -430,8 +444,8 @@ h1 {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: rgba(0,212,255,0.3);
-  border: 2px solid #00d4ff;
+  background: rgba(138, 43, 226, 0.3);
+  border: 2px solid #8a2be2;
   color: white;
   padding: 12px 20px;
   border-radius: 25px;
@@ -442,7 +456,7 @@ h1 {
 }
 
 .sound-test-btn:hover {
-  background: rgba(0,212,255,0.6);
+  background: rgba(138, 43, 226, 0.6);
   transform: scale(1.05);
 }
 
