@@ -7,6 +7,6 @@
     { "src": "/api/dex-proxy", "dest": "/api/dex-proxy.js" },
     { "src": "/api/pump-proxy", "dest": "/api/pump-proxy.js" },
     { "src": "/api/solana", "dest": "/api/solana.js" },
-    { "src": "/api/tokens", "dest": "/api/tokens.js" }
+    { "src": "/api/token", "dest": "/api/token.js" }
   ]
 }
