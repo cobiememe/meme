@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/pump-proxy.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/pump-proxy", "dest": "/api/pump-proxy.js" }
+  ]
+}
