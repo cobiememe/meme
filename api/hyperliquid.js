@@ -1,8 +1,10 @@
 // api/hyperliquid.js
+// KORRIGIERTE VERSION - Die richtige Hyperliquid API nutzen!
+
 export default async function handler(req, res) {
   // CORS erlauben
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   // OPTIONS Request für Preflight handling
@@ -11,27 +13,44 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { asset, address, endpoint } = req.query;
+    const { endpoint, user, coin } = req.body || req.query;
     
-    let url = '';
+    // Die RICHTIGE Hyperliquid API URL
+    const API_BASE = 'https://api.hyperliquid.xyz/info';
+    
+    let requestBody = {};
     
     // Unterschiedliche Endpoints handhaben
-    if (endpoint === 'trades') {
-      url = `https://api.hyperliquid.xyz/api/v1/trades?coin=${asset || 'ETH'}`;
-    } else if (endpoint === 'userFills') {
-      url = `https://api.hyperliquid.xyz/api/v1/userFills?user=${address}`;
+    if (endpoint === 'userFills') {
+      requestBody = {
+        type: 'userFills',
+        user: user
+      };
     } else if (endpoint === 'meta') {
-      url = `https://api.hyperliquid.xyz/api/v1/meta`;
+      requestBody = {
+        type: 'meta'
+      };
+    } else if (endpoint === 'allMids') {
+      requestBody = {
+        type: 'allMids'
+      };
+    } else if (endpoint === 'clearinghouseState') {
+      requestBody = {
+        type: 'clearinghouseState',
+        user: user
+      };
     } else {
       return res.status(400).json({ error: 'Invalid endpoint' });
     }
 
-    console.log('Fetching from Hyperliquid:', url);
+    console.log('Fetching from Hyperliquid:', endpoint, requestBody);
     
-    const response = await fetch(url, {
+    const response = await fetch(API_BASE, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(requestBody)
     });
 
     if (!response.ok) {
@@ -40,10 +59,7 @@ export default async function handler(req, res) {
 
     const data = await response.json();
     
-    // Sicherstellen dass wir immer ein Array zurückgeben
-    const result = Array.isArray(data) ? data : [data];
-    
-    res.status(200).json(result);
+    res.status(200).json(data);
     
   } catch (error) {
     console.error('Hyperliquid API Error:', error);
