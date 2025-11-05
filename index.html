@@ -506,7 +506,7 @@
     
     <div class="profile-modal-header">
       <h2>Edit Profile</h2>
-      <button id="closeProfile" class="close-btn">✕</button>
+      <button id="profileClose" class="close-btn">✕</button>
     </div>
 
     <label>Bio (200 chars)</label>
@@ -526,7 +526,9 @@
   </div>
 </div>
 
-<!-- ✅ SCRIPT HIER - NACH DEM MODAL HTML -->
+<!-- FÜGE DIESES OVERLAY HINZU -->
+<div id="modalOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9998;"></div>
+
 <script>
 /* ---------- CONFIG ---------- */
 const SUPABASE_URL  = "https://nigwdyolfgixcejslaue.supabase.co";
@@ -810,6 +812,17 @@ async function loadTrends(){
   }
 }
 
+/* ---------- Filter Funktion ---------- */
+async function filterByTag(tag){
+  const { data } = await db.from("posts")
+    .select("*")
+    .contains("tags", [tag])
+    .order("created_at", { ascending: false });
+
+  feed.innerHTML = "";
+  await renderPosts(data);
+}
+
 /* ---------- Cooldown ---------- */
 async function canPost(pub){
   const { data, error } = await db.from("posts").select("created_at").eq("wallet", pub).order("created_at", {ascending:false}).limit(1);
@@ -870,10 +883,11 @@ postBtn.onclick = async ()=>{
   }
 };
 
-// ---------------- PROFILE MODAL LOGIC ----------------
+/* ---------- PROFILE MODAL LOGIC (KORRIGIERT) ---------- */
 const modal = document.getElementById("profileModal");
+const overlay = document.getElementById("modalOverlay");
 const openBtn = document.getElementById("profileLink");
-const closeBtn = document.getElementById("closeProfile");
+const closeBtn = document.getElementById("profileClose");
 const saveBtn = document.getElementById("saveProfile");
 const addBtn = document.getElementById("addAsset");
 const pfForm = document.getElementById("pfForm");
@@ -883,21 +897,42 @@ const avatarInput = document.getElementById("avatarInput");
 let pfChart;
 let pfData = [];
 
-// Open modal - KORRIGIERT MIT FEHLERBEHANDLUNG
-openBtn.onclick = () => {
+// Open modal
+function openProfileModal() {
   if(!wallet) {
-    alert("Please connect your wallet first!");
+    alert("Connect wallet first!");
     return;
   }
-  console.log("Opening profile modal...");
   loadProfile();
   modal.style.display = "flex";
-};
+  overlay.style.display = "block";
+}
 
 // Close modal
-closeBtn.onclick = () => {
+function closeProfileModal() {
   modal.style.display = "none";
-};
+  overlay.style.display = "none";
+}
+
+// Event Listeners für Modal
+if(openBtn) {
+  openBtn.onclick = openProfileModal;
+}
+
+if(closeBtn) {
+  closeBtn.onclick = closeProfileModal;
+}
+
+if(overlay) {
+  overlay.onclick = closeProfileModal;
+}
+
+// ESC key to close modal
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && modal.style.display === "flex") {
+    closeProfileModal();
+  }
+});
 
 // Add asset field
 addBtn.onclick = () => renderAsset("", "");
@@ -906,162 +941,81 @@ addBtn.onclick = () => renderAsset("", "");
 function renderAsset(symbol, percent){
   const row = document.createElement("div");
   row.innerHTML = `
-    <input class="text-input" placeholder="BTC (e.g., SOL, ETH)" value="${symbol}">
-    <input class="text-input" placeholder="25 (%)" type="number" value="${percent}">
+    <input class="text-input" placeholder="BTC" value="${symbol}">
+    <input class="text-input" placeholder="25" type="number" value="${percent}">
   `;
   pfForm.appendChild(row);
 }
 
-// Load profile from DB - MIT FEHLERBEHANDLUNG
+// Load profile from DB
 async function loadProfile(){
-  try {
-    console.log("Loading profile for:", wallet);
-    
-    // Versuche Profile zu laden, aber fange Fehler ab falls Tabelle nicht existiert
-    const { data, error } = await db.from("profiles").select("*").eq("wallet", wallet).single();
-    
-    if(error) {
-      console.log("Profile table might not exist yet, using default values:", error);
-      // Setze Standardwerte
-      bioInput.value = "";
-      avatarInput.value = "";
-      pfData = [];
-      pfForm.innerHTML = "";
-      // Füge ein Beispiel-Asset hinzu
-      renderAsset("SOL", "50");
-      drawChart();
-      return;
-    }
-    
-    if(data){
-      bioInput.value = data.bio || "";
-      avatarInput.value = data.avatar || "";
-      pfData = data.portfolio || [];
-      pfForm.innerHTML = "";
-      
-      // Falls keine Portfolio-Daten, füge Beispiel hinzu
-      if(pfData.length === 0) {
-        renderAsset("SOL", "50");
-      } else {
-        pfData.forEach(a => renderAsset(a.symbol, a.percent));
-      }
-      
-      drawChart();
-    } else {
-      // Kein Profil gefunden - setze Standardwerte
-      pfData = [];
-      pfForm.innerHTML = "";
-      renderAsset("SOL", "50");
-      drawChart();
-    }
-  } catch (error) {
-    console.error("Error loading profile:", error);
-    // Fallback: Setze Standardwerte
-    bioInput.value = "";
-    avatarInput.value = "";
+  const { data } = await db.from("profiles").select("*").eq("wallet", wallet).single();
+  if(data){
+    bioInput.value = data.bio || "";
+    avatarInput.value = data.avatar || "";
+    pfData = data.portfolio || [];
+    pfForm.innerHTML = "";
+    pfData.forEach(a => renderAsset(a.symbol, a.percent));
+    drawChart();
+  } else {
     pfData = [];
     pfForm.innerHTML = "";
-    renderAsset("SOL", "50");
-    drawChart();
   }
 }
 
-// Save profile - MIT FEHLERBEHANDLUNG
+// Save profile
 saveBtn.onclick = async () => {
-  try {
-    const rows = [...pfForm.querySelectorAll("div")];
-    pfData = rows.map(r => {
-      const [s, p] = r.querySelectorAll("input");
-      return { symbol: s.value, percent: Number(p.value) };
-    }).filter(x => x.symbol && x.percent);
+  const rows = [...pfForm.querySelectorAll("div")];
+  pfData = rows.map(r => {
+    const [s, p] = r.querySelectorAll("input");
+    return { symbol: s.value, percent:Number(p.value) };
+  }).filter(x => x.symbol && x.percent);
 
-    console.log("Saving profile data:", { wallet, bio: bioInput.value, avatar: avatarInput.value, portfolio: pfData });
+  await db.from("profiles").upsert({
+    wallet,
+    bio: bioInput.value,
+    avatar: avatarInput.value,
+    portfolio: pfData
+  });
 
-    // Versuche zu speichern
-    const { error } = await db.from("profiles").upsert({
-      wallet,
-      bio: bioInput.value,
-      avatar: avatarInput.value,
-      portfolio: pfData
-    });
-
-    if(error) {
-      console.error("Supabase error:", error);
-      // Falls Tabelle nicht existiert, zeige Info für manuelle Erstellung
-      if(error.code === '42P01') { // table does not exist
-        alert("ℹ️ Profile table doesn't exist yet. Please create the 'profiles' table in Supabase first.\n\nTable schema:\n- wallet (text, primary key)\n- bio (text)\n- avatar (text)\n- portfolio (jsonb)");
-      } else {
-        alert("❌ Error saving profile: " + error.message);
-      }
-      return;
-    }
-
-    alert("✅ Profile saved successfully!");
-    modal.style.display = "none";
-    
-  } catch (error) {
-    console.error("Error saving profile:", error);
-    alert("❌ Error saving profile: " + error.message);
-  }
+  alert("✅ Profile saved!");
+  closeProfileModal();
 };
 
-// Donut Chart - VERBESSERTE VERSION
+// Donut Chart
 function drawChart(){
   const ctx = document.getElementById("pfChart");
-  if(!ctx) {
-    console.log("Chart canvas not found");
-    return;
-  }
-  
-  if(pfChart) {
-    pfChart.destroy();
-  }
+  if(pfChart) pfChart.destroy();
 
-  // Stelle sicher, dass wir Daten haben
-  const chartData = pfData && pfData.length > 0 ? pfData : [{ symbol: "SOL", percent: 100 }];
-  
-  try {
-    pfChart = new Chart(ctx, {
-      type: "doughnut",
-      data: {
-        labels: chartData.map(a => a.symbol),
-        datasets: [{
-          data: chartData.map(a => a.percent),
-          backgroundColor: [
-            '#00eaff', '#14F195', '#9945FF', '#FF6B6B', '#FFD93D',
-            '#6BCF7F', '#FF9A76', '#A66CFF', '#9AD0F5', '#FFB6C1'
-          ],
-          borderWidth: 0,
-          borderColor: 'rgba(255,255,255,0.1)'
-        }]
-      },
-      options: {
-        responsive: false,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: {
-              color: '#9ed9e6',
-              font: {
-                family: 'Barlow',
-                size: 12
-              }
-            }
-          },
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                return `${context.label}: ${context.parsed}%`;
-              }
+  pfChart = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: pfData.map(a=>a.symbol),
+      datasets: [{
+        data: pfData.map(a=>a.percent),
+        backgroundColor: [
+          '#00eaff', '#14F195', '#9945FF', '#FF6B6B', '#FFD93D',
+          '#6BCF7F', '#FF9A76', '#A66CFF', '#9AD0F5', '#FFB6C1'
+        ],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      responsive: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            color: '#9ed9e6',
+            font: {
+              family: 'Barlow',
+              size: 12
             }
           }
-        },
-        cutout: '60%'
+        }
       }
-    });
-  } catch (error) {
-    console.error("Error drawing chart:", error);
-  }
+    }
+  });
 }
 
 /* ---------- Event Listeners ---------- */
@@ -1080,20 +1034,6 @@ document.addEventListener("click", (e) => {
   // Reset Feed Button
   if(e.target.id === "resetFeedBtn" || e.target.closest("#resetFeedBtn")){
     loadFeed();
-  }
-});
-
-// Close modal when clicking outside
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    modal.style.display = "none";
-  }
-});
-
-// ESC key to close modal
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && modal.style.display === "flex") {
-    modal.style.display = "none";
   }
 });
 
