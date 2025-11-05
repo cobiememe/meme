@@ -8,9 +8,6 @@
   <!-- Barlow Font -->
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- Chart.js für Portfolio Chart -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
 <title>Gobbles — Cope Harder!</title>
 
 <!-- Solana Web3 -->
@@ -368,48 +365,150 @@
     animation:pulseGlow 2s infinite;
   }
 
-  /* ===================== PROFILE MODAL STYLES ===================== */
-  .profile-overlay{
-    position:fixed; inset:0;
-    background:rgba(0,0,0,0.55);
-    backdrop-filter:blur(8px);
-    z-index:9999;
-    display:flex; align-items:center; justify-content:center;
+  /* Profile Popup Styles */
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(7, 10, 22, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
   }
 
-  .profile-modal{
-    width:75%; max-width:900px;
-    background:rgba(15,22,34,.85);
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:18px;
-    padding:20px;
-    box-shadow:0 0 50px rgba(0,234,255,.25);
-    backdrop-filter:blur(10px);
+  .popup-card {
+    background: linear-gradient(180deg, rgba(17, 24, 39, 0.95), rgba(7, 10, 16, 0.98));
+    border: 1px solid rgba(0, 234, 255, 0.3);
+    border-radius: 20px;
+    padding: 24px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0, 234, 255, 0.3);
+    animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
-  .profile-modal-header{
-    display:flex; justify-content:space-between; align-items:center;
-    margin-bottom:10px;
+  .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 16px;
   }
 
-  .close-btn{
-    background:transparent; border:none; color:#fff;
-    font-size:22px; cursor:pointer;
+  .popup-header h3 {
+    margin: 0;
+    background: linear-gradient(90deg, #00eaff, #14F195);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
-  #pfForm > div{
-    display:flex; gap:6px; margin-bottom:6px;
-  }
-  #pfForm input{
-    flex:1;
-  }
-
-  label {
-    display: block;
-    margin: 12px 0 6px 0;
+  .close-popup {
+    background: none;
+    border: none;
     color: var(--muted);
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+  }
+
+  .close-popup:hover {
+    color: var(--accent);
+    background: rgba(0, 234, 255, 0.1);
+  }
+
+  .profile-avatar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .profile-avatar .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+  }
+
+  .wallet-info {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .nft-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #14F195, #00eaff);
+    color: #0f1622;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-left: 8px;
+    animation: pulseGlow 2s infinite;
+  }
+
+  .profile-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 24px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 24px;
+    font-weight: 800;
+    background: linear-gradient(90deg, #00eaff, #14F195);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .profile-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .profile-actions .btn {
+    flex: 1;
+    text-align: center;
+    padding: 12px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 </style>
 </head>
@@ -500,34 +599,50 @@
   </div>
 </main>
 
-<!-- ===================== PROFILE MODAL ===================== -->
-<div id="profileModal" class="profile-overlay" style="display:none">
-  <div class="profile-modal">
-    
-    <div class="profile-modal-header">
-      <h2>Edit Profile</h2>
-      <button id="profileClose" class="close-btn">✕</button>
+<!-- Profile Popup -->
+<div id="profilePopup" class="popup-overlay" style="display:none">
+  <div class="popup-card">
+    <div class="popup-header">
+      <h3>Your Profile</h3>
+      <button class="close-popup">&times;</button>
     </div>
-
-    <label>Bio (200 chars)</label>
-    <textarea id="bioInput" maxlength="200" class="text-input" style="height:70px"></textarea>
-
-    <label>Avatar / NFT URL</label>
-    <input id="avatarInput" type="text" class="text-input" placeholder="https://..." />
-
-    <label>Portfolio (symbol & percent)</label>
-    <div id="pfForm"></div>
-    <button id="addAsset" class="btn" style="margin-top:6px">+ Add Asset</button>
-
-    <canvas id="pfChart" width="350" height="350" style="margin:10px auto; display:block"></canvas>
-
-    <button id="saveProfile" class="btn" style="width:100%; margin-top:12px">Save Profile</button>
-
+    
+    <div class="popup-body">
+      <div class="profile-avatar">
+        <div id="profileAvatar" class="avatar nft-halo">
+          <!-- Avatar wird via JS geladen -->
+        </div>
+      </div>
+      
+      <div class="profile-info">
+        <div class="wallet-info">
+          <span id="profileWallet" class="wallet-label"></span>
+          <span class="nft-badge">NFT Holder</span>
+        </div>
+        
+        <div class="profile-stats">
+          <div class="stat">
+            <span class="stat-number" id="postsCount">0</span>
+            <span class="stat-label">Posts</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number" id="upvotesCount">0</span>
+            <span class="stat-label">Upvotes</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number" id="tipsReceived">0</span>
+            <span class="stat-label">Tips</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="profile-actions">
+        <button class="btn" onclick="copyWalletAddress()">Copy Wallet</button>
+        <button class="btn" onclick="viewOnExplorer()">View on Explorer</button>
+      </div>
+    </div>
   </div>
 </div>
-
-<!-- FÜGE DIESES OVERLAY HINZU -->
-<div id="modalOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9998;"></div>
 
 <script>
 /* ---------- CONFIG ---------- */
@@ -883,140 +998,90 @@ postBtn.onclick = async ()=>{
   }
 };
 
-/* ---------- PROFILE MODAL LOGIC (KORRIGIERT) ---------- */
-const modal = document.getElementById("profileModal");
-const overlay = document.getElementById("modalOverlay");
-const openBtn = document.getElementById("profileLink");
-const closeBtn = document.getElementById("profileClose");
-const saveBtn = document.getElementById("saveProfile");
-const addBtn = document.getElementById("addAsset");
-const pfForm = document.getElementById("pfForm");
-const bioInput = document.getElementById("bioInput");
-const avatarInput = document.getElementById("avatarInput");
+/* ---------- Profile Popup Functions ---------- */
+const profilePopup = document.getElementById("profilePopup");
+const profileAvatar = document.getElementById("profileAvatar");
+const profileWallet = document.getElementById("profileWallet");
+const postsCount = document.getElementById("postsCount");
+const upvotesCount = document.getElementById("upvotesCount");
+const tipsReceived = document.getElementById("tipsReceived");
 
-let pfChart;
-let pfData = [];
-
-// Open modal
-function openProfileModal() {
-  if(!wallet) {
-    alert("Connect wallet first!");
+// Popup öffnen
+async function openProfilePopup() {
+  if (!wallet) {
+    alert("Please connect your wallet first!");
     return;
   }
-  loadProfile();
-  modal.style.display = "flex";
-  overlay.style.display = "block";
+
+  // Popup Inhalte laden
+  await loadProfileData();
+  
+  // Popup anzeigen
+  profilePopup.style.display = "flex";
+  document.body.style.overflow = "hidden"; // Scrollen im Hintergrund verhindern
 }
 
-// Close modal
-function closeProfileModal() {
-  modal.style.display = "none";
-  overlay.style.display = "none";
+// Popup schließen
+function closeProfilePopup() {
+  profilePopup.style.display = "none";
+  document.body.style.overflow = "auto";
 }
 
-// Event Listeners für Modal
-if(openBtn) {
-  openBtn.onclick = openProfileModal;
+// Profildaten laden
+async function loadProfileData() {
+  try {
+    // Avatar laden
+    const avatarImg = await avatar(wallet);
+    if (avatarImg) {
+      profileAvatar.innerHTML = `<img src="${avatarImg}" alt="Profile Avatar">`;
+    }
+
+    // Wallet Adresse anzeigen
+    if (typeof displayWalletLabel === 'function') {
+      displayWalletLabel(wallet, profileWallet);
+    } else {
+      profileWallet.textContent = `${wallet.slice(0, 6)}...${wallet.slice(-4)}`;
+    }
+
+    // Statistiken laden
+    const { data: posts } = await db.from("posts")
+      .select("id, upvotes, downvotes")
+      .eq("wallet", wallet);
+    
+    const postsTotal = posts?.length || 0;
+    const upvotesTotal = posts?.reduce((sum, post) => sum + (post.upvotes || 0), 0) || 0;
+    
+    postsCount.textContent = postsTotal;
+    upvotesCount.textContent = upvotesTotal;
+    tipsReceived.textContent = "0"; // Platzhalter für zukünftige Tips-Funktion
+
+  } catch (error) {
+    console.error("Error loading profile data:", error);
+  }
 }
 
-if(closeBtn) {
-  closeBtn.onclick = closeProfileModal;
+// Wallet Adresse kopieren
+function copyWalletAddress() {
+  navigator.clipboard.writeText(wallet).then(() => {
+    alert("Wallet address copied to clipboard!");
+  });
 }
 
-if(overlay) {
-  overlay.onclick = closeProfileModal;
+// Explorer öffnen
+function viewOnExplorer() {
+  window.open(`https://solscan.io/account/${wallet}`, "_blank");
 }
 
-// ESC key to close modal
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && modal.style.display === "flex") {
-    closeProfileModal();
+// Event Listeners für Popup
+document.querySelector(".close-popup").addEventListener("click", closeProfilePopup);
+profilePopup.addEventListener("click", (e) => {
+  if (e.target === profilePopup) {
+    closeProfilePopup();
   }
 });
 
-// Add asset field
-addBtn.onclick = () => renderAsset("", "");
-
-// Render input row
-function renderAsset(symbol, percent){
-  const row = document.createElement("div");
-  row.innerHTML = `
-    <input class="text-input" placeholder="BTC" value="${symbol}">
-    <input class="text-input" placeholder="25" type="number" value="${percent}">
-  `;
-  pfForm.appendChild(row);
-}
-
-// Load profile from DB
-async function loadProfile(){
-  const { data } = await db.from("profiles").select("*").eq("wallet", wallet).single();
-  if(data){
-    bioInput.value = data.bio || "";
-    avatarInput.value = data.avatar || "";
-    pfData = data.portfolio || [];
-    pfForm.innerHTML = "";
-    pfData.forEach(a => renderAsset(a.symbol, a.percent));
-    drawChart();
-  } else {
-    pfData = [];
-    pfForm.innerHTML = "";
-  }
-}
-
-// Save profile
-saveBtn.onclick = async () => {
-  const rows = [...pfForm.querySelectorAll("div")];
-  pfData = rows.map(r => {
-    const [s, p] = r.querySelectorAll("input");
-    return { symbol: s.value, percent:Number(p.value) };
-  }).filter(x => x.symbol && x.percent);
-
-  await db.from("profiles").upsert({
-    wallet,
-    bio: bioInput.value,
-    avatar: avatarInput.value,
-    portfolio: pfData
-  });
-
-  alert("✅ Profile saved!");
-  closeProfileModal();
-};
-
-// Donut Chart
-function drawChart(){
-  const ctx = document.getElementById("pfChart");
-  if(pfChart) pfChart.destroy();
-
-  pfChart = new Chart(ctx, {
-    type: "doughnut",
-    data: {
-      labels: pfData.map(a=>a.symbol),
-      datasets: [{
-        data: pfData.map(a=>a.percent),
-        backgroundColor: [
-          '#00eaff', '#14F195', '#9945FF', '#FF6B6B', '#FFD93D',
-          '#6BCF7F', '#FF9A76', '#A66CFF', '#9AD0F5', '#FFB6C1'
-        ],
-        borderWidth: 0
-      }]
-    },
-    options: {
-      responsive: false,
-      plugins: {
-        legend: {
-          position: 'bottom',
-          labels: {
-            color: '#9ed9e6',
-            font: {
-              family: 'Barlow',
-              size: 12
-            }
-          }
-        }
-      }
-    }
-  });
-}
+// Profile Link Event Listener ersetzen
+profileLink.onclick = openProfilePopup;
 
 /* ---------- Event Listeners ---------- */
 document.addEventListener("click", (e) => {
