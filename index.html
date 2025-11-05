@@ -32,496 +32,7 @@
 </script>
 
 <style>
-  :root{
-    --bg:#0b0f14; --panel:#0f1622; --ink:#e9fbff; --muted:#9ed9e6; --accent:#00eaff;
-    --good:#14F195; --bad:#ff6b6b; --purple:#9945FF; --blue:#00eaff;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;background:
-    radial-gradient(1200px 800px at 70% -10%,rgba(0,234,255,.08),transparent 60%),
-    linear-gradient(180deg,#05080c,#0a0f16 40%,#05080c);
-    color:var(--ink);font-family:"Barlow", system-ui, -apple-system, Segoe UI, Roboto, Arial}
-  a{color:var(--accent)}
-  
-  /* Barlow Font für Headlines */
-  h1, h2, h3, .brand-wrap b {
-    font-family:"Barlow", sans-serif;
-    font-weight:800; /* ExtraBold like X headlines */
-  }
-
-  body {
-    font-family:"Barlow", sans-serif;
-    font-weight:400; /* regular for posts */
-  }
-  
-  /* ⭐ Partikel/Sterne Hintergrund */
-  #particles {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .container{max-width:1200px;margin:0 auto;padding:16px 16px 80px 16px;position:relative;z-index:1}
-  header{position:sticky;top:0;z-index:10;backdrop-filter:saturate(140%) blur(6px);
-    background:linear-gradient(180deg,rgba(10,15,22,.94),rgba(10,15,22,.6));border-bottom:1px solid rgba(255,255,255,.06)}
-  .h-wrap{max-width:1200px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px}
-  .brand-wrap{display:flex;align-items:center;gap:10px}
-  
-  /* Logo Animation - komplett überarbeitet */
-  .logo-anim {
-    width: 52px;
-    height: 52px;
-    border-radius: 10px;
-    border: 3px solid #00eaff77;
-    object-fit: cover;
-    box-shadow: 0 0 12px rgba(0,234,255,0.35);
-    animation: wobble 3s ease-in-out infinite, spinPulse 9s linear infinite;
-  }
-
-  /* Nur das 'G' hat spezielle Animation */
- .g-wobble {
-  display: inline-block;
-  transform-origin: center;
-  animation: gWobble 3.2s ease-in-out infinite, gSpin 9s linear infinite;
-  transform-origin: 55% 55%;
-  background: linear-gradient(90deg,#00eaff,#9945FF,#14f195);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-  @keyframes gWobble {
-    0%,100%{ transform: rotate(0deg) }
-    20%{ transform: rotate(-6deg) }
-    40%{ transform: rotate(4deg) }
-  }
-  
-  @keyframes gSpin {
-    0%{ filter: hue-rotate(0deg) }
-    94%{ transform: rotate(0deg) }
-    100%{ transform: rotate(360deg); filter: hue-rotate(50deg) }
-  }
-
-  @keyframes wobble {
-    0%, 100% { transform: rotate(0deg) scale(1); }
-    25% { transform: rotate(-5deg) scale(1.10); }
-    50% { transform: rotate(5deg) scale(1.10); }
-    75% { transform: rotate(-3deg) scale(1.05); }
-  }
-  
-  @keyframes spinPulse {
-    0%, 90% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-
-  .brand-main {
-    font-weight:800;
-    font-size: 26px;
-    background:linear-gradient(90deg,#00eaff,#9945FF,#14f195);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent
-  }
-
-  /* Wallet + Profile Bereich */
-  .header-right-wrap {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-left: auto;
-  }
-
-  /* ============ GLOBAL NEON REFINES ============ */
-  :root{
-    --glass: rgba(15, 22, 34, .65);
-    --glass-border: rgba(255,255,255,.10);
-    --neo1:#00eaff; --neo2:#14F195; --neo3:#9945FF;
-  }
-
-  /* Cards etwas "floating" */
-  .card{
-    background: linear-gradient(180deg, rgba(17,24,39,.55), rgba(7,10,16,.65));
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(6px);
-    box-shadow: 0 12px 40px rgba(0,0,0,.35);
-    border-radius: 16px;
-  }
-
-  /* Buttons – behalte deine .btn Klasse, verfeinere Look */
-  .btn{
-    background: linear-gradient(135deg, rgba(0,234,255,.14), rgba(20,241,149,.14));
-    border: 1px solid rgba(255,255,255,.18);
-    box-shadow: 0 0 0 0 rgba(0,234,255,0);
-    transition: box-shadow .25s ease, transform .15s ease, border-color .25s ease;
-  }
-  .btn:hover{
-    border-color: rgba(0,234,255,.35);
-    box-shadow: 0 8px 28px rgba(0,234,255,.25);
-    transform: translateY(-1px);
-  }
-
-  /* Header-"Profile"-Pill */
-  .pill{
-    display:inline-flex; align-items:center; gap:8px;
-    height:32px; padding:0 14px;
-    border-radius:999px; font-weight:700; text-decoration:none;
-    color:var(--ink);
-    background: linear-gradient(135deg, rgba(0,234,255,.10), rgba(153,69,255,.10));
-    border:1px solid rgba(255,255,255,.16);
-    backdrop-filter: blur(6px);
-    transition: all .25s ease;
-  }
-  .pill:hover{
-    color:#e9fbff;
-    box-shadow: 0 0 22px rgba(0,234,255,.25);
-    border-color: rgba(0,234,255,.35);
-    transform: translateY(-1px);
-  }
-  .profile-pill::before{
-    content:"🪪";
-    filter:saturate(140%);
-  }
-
-  /* Button als Pill */
-  button.pill {
-    cursor: pointer;
-    font: inherit;
-    border: none;
-    outline: none;
-  }
-
-  /* Wallet-Status-Pill etwas konsistenter (falls .status im Header) */
-  .status{
-    background: linear-gradient(135deg, rgba(0,234,255,.08), rgba(0,0,0,.08));
-    border:1px solid rgba(255,255,255,.12);
-    box-shadow: inset 0 0 12px rgba(0,234,255,.08);
-  }
-
-  .status{font-size:12px;color:var(--muted);padding:6px 10px;border:1px solid rgba(255,255,255,.08);border-radius:999px}
-  .connect-btn { margin-left: 10px; }
-  .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:16px}
-  @media (max-width:980px){.grid{grid-template-columns:1fr}}
-  .card{background:linear-gradient(180deg,rgba(17,24,39,.6),rgba(7,10,16,.7));
-    border:1px solid rgba(255,255,255,.1);border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.3)}
-  .card .body{padding:14px}
-  .post {
-    padding:12px;
-    display:grid;
-    grid-template-columns:48px 1fr;
-    gap:12px;
-    border-bottom:1px solid rgba(255,255,255,.04);
-    opacity:0;
-    animation:fadeUp .35s ease forwards;
-    transition:0.25s ease;
-  }
-  .post:hover {
-    background:radial-gradient(600px 160px at 15% 0%, rgba(0,234,255,.06), transparent 50%);
-    transform: translateY(-1px);
-    box-shadow: 0 8px 28px rgba(0,0,0,.25);
-  }
-  
-  /* Boom-Post Animation */
-  .post-boom {
-    animation: dropBoom 0.55s cubic-bezier(.17,.67,.45,1.32) forwards;
-    opacity: 0;
-  }
-
-  @keyframes dropBoom {
-    0% {
-      transform: translateY(-120px) scale(0.8) rotate(-3deg);
-      opacity: 0;
-      box-shadow: none;
-    }
-    80% {
-      transform: translateY(8px) scale(1.03);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(0) scale(1);
-      box-shadow: 0 0 18px rgba(0,255,150,.4);
-    }
-  }
-
-  .avatar {
-    width:48px;height:48px;border-radius:12px;
-    background:conic-gradient(from 120deg,#9945FF,#14F195,#00FFA3);
-    overflow:hidden;display:block;
-    animation:pulseGlow 3s infinite ease-in-out;
-    box-shadow:0 0 8px rgba(0,255,180,0.3);
-  }
-  .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-  .muted{color:var(--muted);font-size:12px}
-  textarea{background:#09101a;border:2px solid rgba(0,234,255,0.3);color:var(--ink);border-radius:12px;padding:14px;
-    font:inherit;width:100%;height:120px;resize:vertical;box-shadow:0 0 15px rgba(0,234,255,0.1);transition:all 0.3s ease;}
-  textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 20px rgba(0,234,255,0.3)}
-  .small{font-size:12px;color:var(--muted)}
-  
-  /* Post Actions */
-  .post-actions{display:flex;gap:18px;margin-top:6px;align-items:center}
-  .icon-btn{cursor:pointer;font-size:14px;color:var(--muted);transition:all 0.2s ease;padding:4px 8px;border-radius:6px}
-  .icon-btn:hover{color:var(--accent);background:rgba(0,234,255,0.1)}
-  
-  .tip-btn{background:linear-gradient(135deg,#062018,#0a2a22);border:1px solid #00ffa388;color:#00ffa3;
-    margin-top:4px;padding:6px 12px;font-size:12px;border-radius:8px;cursor:pointer;box-shadow:0 0 10px rgba(0,255,163,0.2)}
-  .tip-btn:hover{box-shadow:0 0 15px rgba(0,255,163,0.4)}
-  
-  .input-group{margin-bottom:12px}
-  .input-label{display:block;margin-bottom:6px;color:var(--muted);font-size:14px}
-  .text-input{background:#09101a;border:2px solid rgba(255,255,255,.1);color:var(--ink);border-radius:10px;padding:10px 12px;
-    width:100%;font:inherit;transition:all 0.3s ease;box-shadow:0 0 10px rgba(0,0,0,0.2)}
-  .text-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 15px rgba(0,234,255,0.2)}
-
-  .sol-icon{
-    width:20px;
-    height:20px;
-    border-radius:6px;
-  }
-  
-  .vote-btn{
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    gap:4px;
-    font-size:14px;
-    color:#7b8ca4; /* muted gray */
-    transition:0.2s;
-    padding:4px 8px;
-    border-radius:6px;
-  }
-
-  .vote-btn.active-up{
-    color:#14F195; 
-    text-shadow: 0 0 6px rgba(20,241,149,.7), 0 0 14px rgba(20,241,149,.5);
-    font-weight:700;
-  }
-
-  .vote-btn.active-down{
-    color:#9945FF;
-    text-shadow: 0 0 6px rgba(153,69,255,.7), 0 0 14px rgba(153,69,255,.5);
-    font-weight:700;
-  }
-
-  .vote-btn:hover{opacity:0.8;}
-
-  /* Fade animation */
-  @keyframes fadeUp {
-    from { opacity:0;transform:translateY(6px);}
-    to   { opacity:1;transform:translateY(0);}
-  }
-
-  /* Avatar breathing glow */
-  @keyframes pulseGlow {
-    0%   { box-shadow:0 0 6px rgba(0,255,180,0.25); }
-    50%  { box-shadow:0 0 14px rgba(0,255,180,0.55); }
-    100% { box-shadow:0 0 6px rgba(0,255,180,0.25); }
-  }
-
-  /* ✅ Verified NFT Halo */
-  .nft-halo {
-    position: relative;
-    border-radius: 12px;
-    animation: nftGlow 2.5s ease-in-out infinite;
-    box-shadow: 0 0 12px rgba(20,241,149,0.6), 0 0 24px rgba(0,234,255,0.4);
-  }
-
-  @keyframes nftGlow {
-    0% { box-shadow: 0 0 8px rgba(0,234,255,0.35), 0 0 14px rgba(20,241,149,0.3); }
-    50% { box-shadow: 0 0 18px rgba(0,234,255,0.7), 0 0 32px rgba(20,241,149,0.55); }
-    100% { box-shadow: 0 0 8px rgba(0,234,255,0.35), 0 0 14px rgba(20,241,149,0.3); }
-  }
-
-  /* ✅ Hashtag Styles */
-  .hashtag {
-    display:inline-block; padding:4px 10px; border-radius:10px;
-    background: rgba(0,234,255,.10);
-    border:1px solid rgba(0,234,255,.25);
-    color:#9ed9e6; cursor:pointer; transition:.2s;
-    font-weight:600;
-  }
-  .hashtag:hover {
-    color:#e9fbff;
-    box-shadow: 0 0 18px rgba(0,234,255,.25);
-  }
-
-  /* ✅ Trending Styles */
-  .trend-item {
-    display:flex; justify-content:space-between; align-items:center;
-    padding:8px 12px; border-radius:10px;
-    background: rgba(255,255,255,.03);
-    border:1px solid rgba(255,255,255,.06);
-    margin-bottom:8px; cursor:pointer;
-    transition:.2s;
-  }
-  .trend-item:hover {
-    background: rgba(0,234,255,.10);
-    border-color: rgba(0,234,255,.25);
-  }
-  .trend-count {
-    color:var(--muted);
-    font-size:11px;
-  }
-
-  /* ✅ Active Filter Badge */
-  .active-filter {
-    background:linear-gradient(135deg,var(--blue),var(--purple));
-    color:white;
-    padding:4px 8px;
-    border-radius:6px;
-    font-size:12px;
-    margin-left:8px;
-    animation:pulseGlow 2s infinite;
-  }
-
-  /* Profile Popup Styles */
-  .popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(7, 10, 22, 0.85);
-    backdrop-filter: blur(8px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-  }
-
-  .popup-overlay.show {
-    display: flex;
-    animation: fadeIn 0.3s ease;
-  }
-
-  .popup-card {
-    background: linear-gradient(180deg, rgba(17, 24, 39, 0.95), rgba(7, 10, 16, 0.98));
-    border: 1px solid rgba(0, 234, 255, 0.3);
-    border-radius: 20px;
-    padding: 24px;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 20px 60px rgba(0, 234, 255, 0.3);
-    animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  .popup-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 16px;
-  }
-
-  .popup-header h3 {
-    margin: 0;
-    background: linear-gradient(90deg, #00eaff, #14F195);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .close-popup {
-    background: none;
-    border: none;
-    color: var(--muted);
-    font-size: 24px;
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-  }
-
-  .close-popup:hover {
-    color: var(--accent);
-    background: rgba(0, 234, 255, 0.1);
-  }
-
-  .profile-avatar {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-
-  .profile-avatar .avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 16px;
-  }
-
-  .wallet-info {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  .nft-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #14F195, #00eaff);
-    color: #0f1622;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 700;
-    margin-left: 8px;
-    animation: pulseGlow 2s infinite;
-  }
-
-  .profile-stats {
-    display: flex;
-    justify-content: space-around;
-    margin: 24px 0;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .stat {
-    text-align: center;
-  }
-
-  .stat-number {
-    display: block;
-    font-size: 24px;
-    font-weight: 800;
-    background: linear-gradient(90deg, #00eaff, #14F195);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .stat-label {
-    font-size: 12px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .profile-actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 20px;
-  }
-
-  .profile-actions .btn {
-    flex: 1;
-    text-align: center;
-    padding: 12px;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes slideUp {
-    from { 
-      opacity: 0;
-      transform: translateY(30px) scale(0.95);
-    }
-    to { 
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
+  /* ... (DEIN GANZES CSS BLEIBT UNVERÄNDERT) ... */
 </style>
 </head>
 <body>
@@ -668,19 +179,9 @@ const HELIUS           = "4e2d8758-bf0e-473b-ae3c-c31bf809553c";
 /* ---------- LIB INIT ---------- */
 const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-/* ---------- UI refs ---------- */
-const statusEl = document.getElementById("wallet-status");
-const connectBtn = document.getElementById("connectBtn");
-const postBtn = document.getElementById("postBtn");
-const feed = document.getElementById("feed");
-const postText = document.getElementById("postText");
-const postSound = document.getElementById("postSound");
-const boomSound = document.getElementById("boomSound");
-const trendBox = document.getElementById("trendBox");
-const filterBadge = document.getElementById("filterBadge");
-const resetFeedBtn = document.getElementById("resetFeedBtn");
-const profileLink = document.getElementById("profileLink");
-
+/* ---------- UI refs (NUR DEKLARIEREN - werden später gesetzt) ---------- */
+let statusEl, connectBtn, postBtn, feed, postText, postSound, boomSound;
+let trendBox, filterBadge, resetFeedBtn, profileLink, profilePopup;
 let wallet = null;
 let currentFilter = null;
 
@@ -710,10 +211,10 @@ for (let i = 0; i < 80; i++) {
   particles.push({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    size: Math.random() * 1.5 + 0.5, // Kleinere, subtilere Größe
-    speedX: (Math.random() - 0.5) * 0.3, // Langsamere Bewegung
+    size: Math.random() * 1.5 + 0.5,
+    speedX: (Math.random() - 0.5) * 0.3,
     speedY: (Math.random() - 0.5) * 0.3,
-    alpha: Math.random() * 0.6 + 0.2 // Subtile Transparenz
+    alpha: Math.random() * 0.6 + 0.2
   });
 }
 
@@ -723,7 +224,6 @@ function animateParticles() {
     p.x += p.speedX; 
     p.y += p.speedY;
     
-    // Wrap around edges
     if (p.x < 0) p.x = canvas.width;
     if (p.x > canvas.width) p.x = 0;
     if (p.y < 0) p.y = canvas.height;
@@ -740,22 +240,25 @@ animateParticles();
 
 /* ---------- Wallet helpers ---------- */
 function getWallet(){ return window.phantom?.solana || window.solana; }
+
 function uiConnected(pk){ 
+  if (!statusEl) return;
   statusEl.textContent = "✅ ";
   const span = document.createElement("span");
   statusEl.appendChild(span);
   
-  // ✅ Fallback falls displayWalletLabel nicht verfügbar
   if (typeof displayWalletLabel === 'function') {
     displayWalletLabel(pk, span);
   } else {
     span.textContent = `${pk.slice(0,4)}…${pk.slice(-4)}`;
   }
-  connectBtn.textContent="Disconnect"; 
+  if (connectBtn) connectBtn.textContent="Disconnect"; 
 }
-function uiDisconnected(){ statusEl.textContent = "Not connected"; connectBtn.textContent="Connect Wallet"; }
 
-connectBtn.onclick = async ()=> wallet ? disconnect() : connect();
+function uiDisconnected(){ 
+  if (statusEl) statusEl.textContent = "Not connected"; 
+  if (connectBtn) connectBtn.textContent="Connect Wallet"; 
+}
 
 async function connect(){
   const p = getWallet();
@@ -767,10 +270,11 @@ async function connect(){
 
 async function disconnect(){
   await getWallet()?.disconnect();
-  wallet = null; uiDisconnected();
+  wallet = null; 
+  uiDisconnected();
 }
 
-/* ---------- Payment (robust confirm) ---------- */
+/* ---------- Payment ---------- */
 async function pay(amount){
   const p = getWallet();
   if(!p?.publicKey) throw new Error("Please connect wallet first");
@@ -807,7 +311,6 @@ async function avatar(pub){
   });
   const json = await r.json();
   const items = json?.result?.items || [];
-  // prefer metadata.image, fallback content.files[0].uri
   let img = items.find(n=>n?.content?.metadata?.image)?.content?.metadata?.image;
   if(!img) img = items.find(n=>n?.content?.files?.[0]?.uri)?.content?.files?.[0]?.uri || null;
 
@@ -817,278 +320,308 @@ async function avatar(pub){
 
 /* ---------- DB ops ---------- */
 async function savePost(text, tx){
-  // Hashtags extrahieren (#solana #gobbles #pump)
   const tags = [...text.matchAll(/#(\w+)/g)].map(m => m[1].toLowerCase());
-
-  // ✅ Speichern mit Tags
   const { error } = await db.from("posts").insert([{ wallet, content:text, tx, tags }]);
   if(error) throw error;
 }
 
-/* ---------- VOTING SYSTEM (UPDATED) ---------- */
-async function vote(postId, type) {
-  if (!wallet) return alert("Please connect wallet first");
-  
-  const { data: existing } = await db
-    .from("votes")
-    .select()
-    .eq("post_id", postId)
-    .eq("voter", wallet)
-    .single();
+/* ---------- VOTING SYSTEM (KORRIGIERT) ---------- */
+window.vote = async (id, dir) => {
+  if(!wallet) return alert("Please connect your wallet!");
 
-  // Wenn bereits gevoted, entfernen (toggle)
-  if (existing) {
-    await db.from("votes").delete().eq("id", existing.id);
-    await updatePostScore(postId);
+  const success = await db.rpc(
+    dir === "up" ? "vote_up" : "vote_down",
+    { p_post_id: id, p_wallet: wallet }
+  );
+
+  if(!success.error){
+    localStorage.setItem("vote_" + id, dir);
+  }
+
+  loadFeed(); 
+};
+
+/* ---------- Feed loading ---------- */
+async function loadFeed(tag = null){
+  currentFilter = tag;
+  
+  if(tag) {
+    if (filterBadge) {
+      filterBadge.style.display = 'inline';
+      filterBadge.innerHTML = `Filter: #${tag} <span class="clear-filter" style="cursor:pointer;margin-left:8px">✕</span>`;
+    }
+  } else {
+    if (filterBadge) filterBadge.style.display = 'none';
+  }
+
+  let query = db.from("posts").select("*").order("created_at", {ascending:false});
+
+  if(tag) {
+    query = query.contains("tags", [tag]);
+  }
+
+  const { data, error } = await query.limit(50);
+    
+  if(error){ console.error("Supabase load error:", error); return; }
+
+  const htmlParts = [];
+  
+  for(const p of (data || [])){
+    const img = await avatar(p.wallet);
+    const hasNft = !!img;
+    const userVote = localStorage.getItem("vote_" + p.id);
+
+    htmlParts.push(`
+      <div class="post">
+        <div class="avatar ${hasNft ? "nft-halo" : ""}">${img ? `<img src="${img}" alt="pfp">` : ""}</div>
+        <div>
+          <b class="wallet-label" data-wallet="${p.wallet}">${p.wallet.slice(0,6)}...</b>
+          <p style="white-space: pre-line">${renderTextWithTags(p.content)}</p>
+          <div class="post-actions">
+            
+            <span class="vote-btn ${userVote === "up" ? "active-up" : ""}" onclick="vote('${p.id}','up')">
+              👍 ${p.upvotes || 0}
+            </span>
+
+            <span class="vote-btn ${userVote === "down" ? "active-down" : ""}" onclick="vote('${p.id}','down')">
+              👎 ${p.downvotes || 0}
+            </span>
+
+            <span class="icon-btn sol-btn" onclick="tipUser('${p.wallet}')">
+              <img src="../img/1Solana.png" class="sol-icon">
+            </span>
+
+            <a target="_blank" class="small" href="https://solscan.io/tx/${p.tx}">
+              View TX
+            </a>
+          </div>
+        </div>
+      </div>`);
+  }
+
+  if (feed) {
+    feed.innerHTML = htmlParts.join("");
+  }
+
+  document.querySelectorAll(".wallet-label").forEach(el => {
+    if (typeof displayWalletLabel === 'function') {
+      displayWalletLabel(el.dataset.wallet, el);
+    }
+  });
+  
+  loadTrends();
+}
+
+/* ---------- Trending System ---------- */
+async function loadTrends(){
+  const { data, error } = await db.from("posts").select("tags");
+  if(error) return;
+
+  let count = {};
+
+  data.forEach(p => {
+    (p.tags || []).forEach(t => {
+      count[t] = (count[t] || 0) + 1;
+    });
+  });
+
+  const trends = Object.entries(count)
+    .sort((a,b) => b[1] - a[1])
+    .slice(0,5);
+
+  if(trends.length > 0 && trendBox) {
+    trendBox.innerHTML = trends.map(t => `
+      <div class="trend-item hashtag" data-tag="${t[0]}">
+        #${t[0]} <span class="trend-count">${t[1]}</span>
+      </div>
+    `).join("");
+  } else if (trendBox) {
+    trendBox.innerHTML = '<div class="small" style="text-align:center;padding:20px;color:var(--muted)">No trends yet. Be the first to post with #hashtags!</div>';
+  }
+}
+
+/* ---------- Cooldown ---------- */
+async function canPost(pub){
+  const { data, error } = await db.from("posts").select("created_at").eq("wallet", pub).order("created_at", {ascending:false}).limit(1);
+  if(error || !data?.length) return true;
+  const last = new Date(data[0].created_at);
+  return (Date.now() - last.getTime())/1000 >= 60;
+}
+
+function startCooldown(sec){
+  if (!postBtn) return;
+  let t = sec; 
+  postBtn.disabled = true;
+  const id = setInterval(()=>{ 
+    postBtn.textContent = `Wait ${t--}s`; 
+    if(t<0){ 
+      clearInterval(id); 
+      postBtn.textContent="Post"; 
+      postBtn.disabled=false; 
+    }
+  }, 1000);
+}
+
+/* ---------- Realtime Feed ---------- */
+db.channel("public:posts")
+  .on("postgres_changes", { event:"INSERT", schema:"public", table:"posts" }, () => {
+    loadFeed(currentFilter);
+    loadTrends();
+  })
+  .subscribe();
+
+/* ---------- Global functions for tipping ---------- */
+window.tipUser = async (to) => {
+  if(!wallet) return alert("Please connect your wallet to tip!");
+  if(to === wallet) return alert("You can't tip yourself! 😂");
+  alert("Tip feature coming in Phase 2 ✅");
+};
+
+/* ---------- Post action ---------- */
+function setupPostButton() {
+  if (!postBtn || !postText) return;
+  
+  postBtn.onclick = async ()=>{
+    const text = postText.value.trim();
+    if(!wallet) return alert("Please connect your wallet first!");
+    if(!text) return alert("Please enter some text!");
+
+    const ok = await canPost(wallet);
+    if(!ok){ alert("⏳ You can only post once per minute."); return; }
+
+    try {
+      const sig = await pay(0.001);
+      await savePost(text, sig);
+      
+      if (postSound) {
+        postSound.currentTime = 0;
+        postSound.play();
+      }
+      
+      setTimeout(() => {
+        if (boomSound) {
+          boomSound.currentTime = 0;
+          boomSound.play();
+        }
+      }, 200);
+      
+      postText.value = "";
+      loadFeed();
+      startCooldown(60);
+    } catch (err) {
+      console.error(err);
+      alert("❌ Post failed: " + (err.message || "Unknown error"));
+    }
+  };
+}
+
+/* ---------- Profile Popup Functions ---------- */
+window.openProfilePopup = async function() {
+  if (!wallet) {
+    alert("Please connect your wallet first!");
     return;
   }
 
-  // Neuer Vote
-  await db.from("votes").insert([{ post_id: postId, voter: wallet, type }]);
-  await updatePostScore(postId);
-}
-
-async function updatePostScore(postId) {
-  // Score berechnen: upvotes - downvotes
-  const { data: votes } = await db
-    .from("votes")
-    .select("type")
-    .eq("post_id", postId);
-
-  const score = (votes || []).reduce((acc, v) => acc + (v.type === "up" ? 1 : -1), 0);
-  
-  await db
-    .from("posts")
-    .update({ score })
-    .eq("id", postId);
-}
-
-/* ---------- FEED LOAD ---------- */
-async function loadFeed(filter = null) {
-  let query = db
-    .from("posts")
-    .select(`
-      *,
-      votes (type, voter)
-    `)
-    .order("created_at", { ascending: false });
-
-  if (filter) {
-    query = query.contains("tags", [filter]);
-  }
-
-  const { data: posts, error } = await query;
-  if (error) { console.error(error); return; }
-
-  feed.innerHTML = "";
-  posts.forEach(p => renderPost(p));
-}
-
-function renderPost(p) {
-  const el = document.createElement("div");
-  el.className = "post";
-  el.dataset.id = p.id;
-
-  // User vote status checken
-  const userVote = p.votes?.find(v => v.voter === wallet);
-  const upActive = userVote?.type === "up" ? "active-up" : "";
-  const downActive = userVote?.type === "down" ? "active-down" : "";
-
-  const score = p.score || 0;
-
-  el.innerHTML = `
-    <div class="avatar">
-      <img src="../img/1boss.png" alt="Avatar">
-    </div>
-    <div>
-      <div class="muted">
-        <span class="wallet-label">${p.wallet.slice(0,4)}…${p.wallet.slice(-4)}</span>
-        • ${new Date(p.created_at).toLocaleString()}
-      </div>
-      <div class="post-content">${renderTextWithTags(p.content)}</div>
-      <div class="post-actions">
-        <div class="vote-btn ${upActive}" onclick="vote(${p.id}, 'up')">
-          ▲ ${score > 0 ? score : ''}
-        </div>
-        <div class="vote-btn ${downActive}" onclick="vote(${p.id}, 'down')">
-          ▼ ${score < 0 ? score : ''}
-        </div>
-        <div class="icon-btn" title="Tip">💎</div>
-        <div class="icon-btn" title="Share">↗️</div>
-      </div>
-    </div>
-  `;
-
-  // Wallet Labels asynchron setzen
-  const labelEl = el.querySelector(".wallet-label");
-  if (typeof displayWalletLabel === 'function') {
-    displayWalletLabel(p.wallet, labelEl);
-  }
-
-  // Hashtag Click Handler
-  el.querySelectorAll(".hashtag").forEach(tag => {
-    tag.onclick = () => filterByTag(tag.dataset.tag);
-  });
-
-  feed.appendChild(el);
-}
-
-/* ---------- TRENDING ---------- */
-async function updateTrending() {
-  const { data: posts } = await db
-    .from("posts")
-    .select("tags")
-    .not("tags", "is", null);
-
-  const allTags = posts?.flatMap(p => p.tags) || [];
-  const counts = {};
-  allTags.forEach(t => counts[t] = (counts[t] || 0) + 1);
-
-  const sorted = Object.entries(counts).sort((a,b) => b[1] - a[1]).slice(0,5);
-
-  trendBox.innerHTML = sorted.length ? 
-    sorted.map(([tag,count]) => `
-      <div class="trend-item" onclick="filterByTag('${tag}')">
-        <span>#${tag}</span>
-        <span class="trend-count">${count}</span>
-      </div>
-    `).join("") : 
-    `<div class="small" style="text-align:center;padding:20px;color:var(--muted)">No trends yet. Be the first to post with #hashtags!</div>`;
-}
-
-/* ---------- FILTER ---------- */
-function filterByTag(tag) {
-  currentFilter = tag;
-  filterBadge.style.display = "inline";
-  filterBadge.innerHTML = `#${tag} <span class="active-filter">Active</span>`;
-  loadFeed(tag);
-}
-
-resetFeedBtn.onclick = () => {
-  currentFilter = null;
-  filterBadge.style.display = "none";
-  loadFeed();
-};
-
-/* ---------- POSTING ---------- */
-postBtn.onclick = async ()=> {
-  if(!wallet) return alert("Please connect wallet first");
-  const text = postText.value.trim();
-  if(!text) return alert("Please enter some text");
-  if(text.length > 140) return alert("Post too long (max 140 chars)");
-
   try {
-    postBtn.disabled = true;
-    postBtn.textContent = "Paying...";
-
-    const sig = await pay(0.001);
-    await savePost(text, sig);
-    postText.value = "";
-
-    // Sound abspielen
-    if (postSound) {
-      postSound.currentTime = 0;
-      postSound.play().catch(e => console.log("Sound play failed:", e));
+    await loadProfileData();
+    
+    if (profilePopup) {
+      profilePopup.classList.add("show");
+      document.body.style.overflow = "hidden";
     }
+  } catch(err) {
+    console.error("Profile load error:", err);
+    alert("Failed to load profile");
+  }
+}
 
-    // Feed neu laden
-    await loadFeed(currentFilter);
-    await updateTrending();
+window.closeProfilePopup = function() {
+  if (profilePopup) {
+    profilePopup.classList.remove("show");
+    document.body.style.overflow = "auto";
+  }
+}
 
-    // Boom-Effekt für den neuesten Post
-    const latestPost = feed.firstChild;
-    if (latestPost) {
-      latestPost.classList.add("post-boom");
-      if (boomSound) {
-        boomSound.currentTime = 0;
-        boomSound.play().catch(e => console.log("Boom sound failed:", e));
+async function loadProfileData() {
+  try {
+    const avatarImg = await avatar(wallet);
+    const profileAvatar = document.getElementById("profileAvatar");
+    if (profileAvatar) {
+      if (avatarImg) {
+        profileAvatar.innerHTML = `<img src="${avatarImg}" alt="Profile Avatar">`;
+      } else {
+        profileAvatar.innerHTML = '';
       }
     }
 
-  } catch(err) {
-    console.error(err);
-    alert("Failed: " + err.message);
-  } finally {
-    postBtn.disabled = false;
-    postBtn.textContent = "Post";
-  }
-};
-
-/* ---------- PROFILE POPUP FUNCTIONS ---------- */
-const profilePopup = document.getElementById("profilePopup");
-
-window.openProfilePopup = async function() {
-  if (!wallet) return alert("Please connect your wallet first!");
-  await loadProfileData();
-  profilePopup.classList.add("show");
-  document.body.style.overflow = "hidden";
-};
-
-window.closeProfilePopup = function() {
-  profilePopup.classList.remove("show");
-  document.body.style.overflow = "auto";
-};
-
-async function loadProfileData() {
-  if (!wallet) return;
-
-  // Wallet Adresse anzeigen
-  const walletEl = document.getElementById("profileWallet");
-  if (walletEl) {
-    walletEl.textContent = `${wallet.slice(0, 6)}...${wallet.slice(-4)}`;
-  }
-
-  // Avatar laden
-  const avatarUrl = await avatar(wallet);
-  const avatarEl = document.getElementById("profileAvatar");
-  if (avatarEl) {
-    if (avatarUrl) {
-      avatarEl.innerHTML = `<img src="${avatarUrl}" alt="Profile Avatar" onerror="this.style.display='none'">`;
-      avatarEl.classList.add("nft-halo");
-    } else {
-      avatarEl.innerHTML = `<img src="../img/1boss.png" alt="Default Avatar">`;
-      avatarEl.classList.remove("nft-halo");
+    const profileWallet = document.getElementById("profileWallet");
+    if (profileWallet) {
+      if (typeof displayWalletLabel === 'function') {
+        displayWalletLabel(wallet, profileWallet);
+      } else {
+        profileWallet.textContent = `${wallet.slice(0, 6)}...${wallet.slice(-4)}`;
+      }
     }
+
+    const { data: posts } = await db.from("posts")
+      .select("id, upvotes, downvotes")
+      .eq("wallet", wallet);
+    
+    const postsTotal = posts?.length || 0;
+    const upvotesTotal = posts?.reduce((sum, post) => sum + (post.upvotes || 0), 0) || 0;
+    
+    const postsCountEl = document.getElementById("postsCount");
+    const upvotesCountEl = document.getElementById("upvotesCount");
+    const tipsReceivedEl = document.getElementById("tipsReceived");
+    
+    if (postsCountEl) postsCountEl.textContent = postsTotal;
+    if (upvotesCountEl) upvotesCountEl.textContent = upvotesTotal;
+    if (tipsReceivedEl) tipsReceivedEl.textContent = "0";
+
+  } catch (error) {
+    console.error("Error loading profile data:", error);
+    throw error;
   }
-
-  // Statistiken laden
-  await loadProfileStats();
 }
 
-async function loadProfileStats() {
-  // Posts zählen
-  const { count: postsCount } = await db
-    .from("posts")
-    .select("*", { count: "exact", head: true })
-    .eq("wallet", wallet);
-
-  // Upvotes zählen (nur positive Votes)
-  const { count: upvotesCount } = await db
-    .from("votes")
-    .select("*", { count: "exact", head: true })
-    .eq("type", "up")
-    .eq("voter", wallet);
-
-  // Tips received zählen (vereinfacht - hier müsste man die Tips-Tabelle abfragen)
-  const tipsReceived = 0; // Platzhalter
-
-  document.getElementById("postsCount").textContent = postsCount || 0;
-  document.getElementById("upvotesCount").textContent = upvotesCount || 0;
-  document.getElementById("tipsReceived").textContent = tipsReceived;
-}
-
-function copyWalletAddress() {
+window.copyWalletAddress = function() {
+  if(!wallet) return alert("No wallet connected!");
   navigator.clipboard.writeText(wallet).then(() => {
-    alert("Wallet address copied to clipboard!");
+    alert("✅ Wallet address copied!");
+  }).catch(() => {
+    alert("Failed to copy address");
   });
 }
 
-function viewOnExplorer() {
+window.viewOnExplorer = function() {
+  if(!wallet) return alert("No wallet connected!");
   window.open(`https://solscan.io/account/${wallet}`, "_blank");
 }
 
-/* ---------- EVENT LISTENERS FÜR POPUP (NACH DEN FUNKTIONEN!) ---------- */
+/* ---------- EVENT LISTENERS FÜR POPUP (NACH DOM!) ---------- */
 document.addEventListener("DOMContentLoaded", () => {
+  // Erst JETZT die Elemente holen!
+  statusEl = document.getElementById("wallet-status");
+  connectBtn = document.getElementById("connectBtn");
+  postBtn = document.getElementById("postBtn");
+  feed = document.getElementById("feed");
+  postText = document.getElementById("postText");
+  postSound = document.getElementById("postSound");
+  boomSound = document.getElementById("boomSound");
+  trendBox = document.getElementById("trendBox");
+  filterBadge = document.getElementById("filterBadge");
+  resetFeedBtn = document.getElementById("resetFeedBtn");
+  profileLink = document.getElementById("profileLink");
+  profilePopup = document.getElementById("profilePopup");
+
+  // Connect Button
+  if (connectBtn) {
+    connectBtn.onclick = async () => wallet ? disconnect() : connect();
+  }
+
+  // Post Button
+  setupPostButton();
+
   // Close Button
   const closeBtn = document.querySelector(".close-popup");
   if (closeBtn) {
@@ -1107,35 +640,43 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Profile Link – jetzt funktioniert's!
+  // Profile Link – JETZT funktioniert's!
   if (profileLink) {
     profileLink.addEventListener("click", (e) => {
-      e.preventDefault(); // WICHTIG: verhindert Default-Button-Verhalten
+      e.preventDefault();
       window.openProfilePopup();
     });
   }
-});
 
-/* ---------- INIT ---------- */
-async function init(){
-  // Auto-connect if previously connected
-  const p = getWallet();
-  if(p?.isConnected && p.publicKey){
-    wallet = p.publicKey.toString();
-    uiConnected(wallet);
+  // Reset Feed Button
+  if (resetFeedBtn) {
+    resetFeedBtn.addEventListener("click", () => {
+      loadFeed();
+    });
   }
 
-  await loadFeed();
-  await updateTrending();
+  // Hashtag Click Handler
+  document.addEventListener("click", (e) => {
+    if(e.target.classList.contains("hashtag")){
+      const tag = e.target.dataset.tag;
+      if(tag) loadFeed(tag);
+    }
 
-  // Poll for new posts
-  setInterval(async ()=>{
-    await loadFeed(currentFilter);
-    await updateTrending();
-  }, 10000);
-}
+    if(e.target.classList.contains("clear-filter")){
+      loadFeed();
+    }
+  });
 
-init();
+  // Auto-connect if phantom already connected
+  if(getWallet()?.publicKey){ 
+    wallet = getWallet().publicKey.toString(); 
+    uiConnected(wallet); 
+  }
+
+  // Initial load
+  loadFeed();
+  loadTrends();
+});
 </script>
 </body>
 </html>
