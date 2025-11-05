@@ -183,6 +183,14 @@
     filter:saturate(140%);
   }
 
+  /* Button als Pill */
+  button.pill {
+    cursor: pointer;
+    font: inherit;
+    border: none;
+    outline: none;
+  }
+
   /* Wallet-Status-Pill etwas konsistenter (falls .status im Header) */
   .status{
     background: linear-gradient(135deg, rgba(0,234,255,.08), rgba(0,0,0,.08));
@@ -529,7 +537,7 @@
     <div style="flex:1"></div>
 
     <span id="wallet-status" class="status">Not connected</span>
-    <a id="profileLink" class="pill profile-pill" href="javascript:void(0)">Profile</a>
+    <button id="profileLink" class="pill profile-pill">Profile</button>
     <button id="connectBtn" class="btn connect-btn">Connect Wallet</button>
   </div>
 </header>
@@ -1085,21 +1093,32 @@ window.viewOnExplorer = function() {
 }
 
 // ✅ Event Listeners für Popup (sicherer Zugriff)
-setTimeout(() => {
+document.addEventListener("DOMContentLoaded", () => {
+  // Close Button
   const closeBtn = document.querySelector(".close-popup");
   if(closeBtn) {
-    closeBtn.addEventListener("click", window.closeProfilePopup);
+    closeBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.closeProfilePopup();
+    });
   }
   
-  profilePopup.addEventListener("click", (e) => {
-    if (e.target === profilePopup) {
-      window.closeProfilePopup();
-    }
-  });
+  // Background Click
+  if(profilePopup) {
+    profilePopup.addEventListener("click", (e) => {
+      if (e.target === profilePopup) {
+        window.closeProfilePopup();
+      }
+    });
+  }
   
-  // Profile Link
-  profileLink.onclick = window.openProfilePopup;
-}, 100);
+  // Profile Link - Jetzt als Button, kein preventDefault nötig!
+  if(profileLink) {
+    profileLink.addEventListener("click", (e) => {
+      window.openProfilePopup();
+    });
+  }
+});
 
 /* ---------- Event Listeners ---------- */
 document.addEventListener("click", (e) => {
