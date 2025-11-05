@@ -1006,23 +1006,28 @@ const postsCount = document.getElementById("postsCount");
 const upvotesCount = document.getElementById("upvotesCount");
 const tipsReceived = document.getElementById("tipsReceived");
 
-// Popup öffnen
-async function openProfilePopup() {
+// ✅ Popup öffnen (global)
+window.openProfilePopup = async function() {
   if (!wallet) {
     alert("Please connect your wallet first!");
     return;
   }
 
-  // Popup Inhalte laden
-  await loadProfileData();
-  
-  // Popup anzeigen
-  profilePopup.style.display = "flex";
-  document.body.style.overflow = "hidden"; // Scrollen im Hintergrund verhindern
+  try {
+    // Popup Inhalte laden
+    await loadProfileData();
+    
+    // Popup anzeigen
+    profilePopup.style.display = "flex";
+    document.body.style.overflow = "hidden";
+  } catch(err) {
+    console.error("Profile load error:", err);
+    alert("Failed to load profile");
+  }
 }
 
-// Popup schließen
-function closeProfilePopup() {
+// ✅ Popup schließen (global)
+window.closeProfilePopup = function() {
   profilePopup.style.display = "none";
   document.body.style.overflow = "auto";
 }
@@ -1034,6 +1039,8 @@ async function loadProfileData() {
     const avatarImg = await avatar(wallet);
     if (avatarImg) {
       profileAvatar.innerHTML = `<img src="${avatarImg}" alt="Profile Avatar">`;
+    } else {
+      profileAvatar.innerHTML = ''; // Fallback wenn kein NFT
     }
 
     // Wallet Adresse anzeigen
@@ -1053,35 +1060,46 @@ async function loadProfileData() {
     
     postsCount.textContent = postsTotal;
     upvotesCount.textContent = upvotesTotal;
-    tipsReceived.textContent = "0"; // Platzhalter für zukünftige Tips-Funktion
+    tipsReceived.textContent = "0";
 
   } catch (error) {
     console.error("Error loading profile data:", error);
+    throw error;
   }
 }
 
-// Wallet Adresse kopieren
-function copyWalletAddress() {
+// ✅ Wallet Adresse kopieren (global)
+window.copyWalletAddress = function() {
+  if(!wallet) return alert("No wallet connected!");
   navigator.clipboard.writeText(wallet).then(() => {
-    alert("Wallet address copied to clipboard!");
+    alert("✅ Wallet address copied!");
+  }).catch(() => {
+    alert("Failed to copy address");
   });
 }
 
-// Explorer öffnen
-function viewOnExplorer() {
+// ✅ Explorer öffnen (global)
+window.viewOnExplorer = function() {
+  if(!wallet) return alert("No wallet connected!");
   window.open(`https://solscan.io/account/${wallet}`, "_blank");
 }
 
-// Event Listeners für Popup
-document.querySelector(".close-popup").addEventListener("click", closeProfilePopup);
-profilePopup.addEventListener("click", (e) => {
-  if (e.target === profilePopup) {
-    closeProfilePopup();
+// ✅ Event Listeners für Popup (sicherer Zugriff)
+setTimeout(() => {
+  const closeBtn = document.querySelector(".close-popup");
+  if(closeBtn) {
+    closeBtn.addEventListener("click", window.closeProfilePopup);
   }
-});
-
-// Profile Link Event Listener ersetzen
-profileLink.onclick = openProfilePopup;
+  
+  profilePopup.addEventListener("click", (e) => {
+    if (e.target === profilePopup) {
+      window.closeProfilePopup();
+    }
+  });
+  
+  // Profile Link
+  profileLink.onclick = window.openProfilePopup;
+}, 100);
 
 /* ---------- Event Listeners ---------- */
 document.addEventListener("click", (e) => {
