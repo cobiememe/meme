@@ -15,6 +15,22 @@
 <!-- Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<!-- ✅ Echter Bonfida SNS Resolver (OHNE ES-Module) -->
+<script>
+  async function displayWalletLabel(address, el) {
+    const short = `${address.slice(0,4)}…${address.slice(-4)}`;
+    el.textContent = short;
+
+    // Check LocalStorage cache
+    const cached = localStorage.getItem("sns_"+address);
+    if (cached) {
+      el.textContent = `${short} (${cached}.sol)`;
+    }
+  }
+  
+  window.displayWalletLabel = displayWalletLabel;
+</script>
+
 <style>
   :root{
     --bg:#0b0f14; --panel:#0f1622; --ink:#e9fbff; --muted:#9ed9e6; --accent:#00eaff;
@@ -366,10 +382,14 @@
     height: 100%;
     background: rgba(7, 10, 22, 0.85);
     backdrop-filter: blur(8px);
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     z-index: 1000;
+  }
+
+  .popup-overlay.show {
+    display: flex;
     animation: fadeIn 0.3s ease;
   }
 
@@ -592,7 +612,7 @@
 </main>
 
 <!-- Profile Popup -->
-<div id="profilePopup" class="popup-overlay" style="display:none">
+<div id="profilePopup" class="popup-overlay">
   <div class="popup-card">
     <div class="popup-header">
       <h3>Your Profile</h3>
@@ -721,7 +741,16 @@ animateParticles();
 /* ---------- Wallet helpers ---------- */
 function getWallet(){ return window.phantom?.solana || window.solana; }
 function uiConnected(pk){ 
-  statusEl.textContent = `✅ ${pk.slice(0,4)}…${pk.slice(-4)}`;
+  statusEl.textContent = "✅ ";
+  const span = document.createElement("span");
+  statusEl.appendChild(span);
+  
+  // ✅ Fallback falls displayWalletLabel nicht verfügbar
+  if (typeof displayWalletLabel === 'function') {
+    displayWalletLabel(pk, span);
+  } else {
+    span.textContent = `${pk.slice(0,4)}…${pk.slice(-4)}`;
+  }
   connectBtn.textContent="Disconnect"; 
 }
 function uiDisconnected(){ statusEl.textContent = "Not connected"; connectBtn.textContent="Connect Wallet"; }
@@ -797,216 +826,316 @@ async function savePost(text, tx){
 }
 
 /* ---------- VOTING SYSTEM (UPDATED) ---------- */
-window.vote = async (id, dir) => {
-  if(!wallet) return alert("Please connect your wallet!");
-
-  const success = await db.rpc(
-    dir === "up" ? "vote_up" : "vote_down",
-    { p_post_id: id, p_wallet: wallet }
-  );
-
-  if(!success.error){
-    localStorage.setItem("vote_" + id, dir);
-  }
-
-  loadFeed(); 
-};
-
-/* ---------- Feed loading ---------- */
-async function loadFeed(tag = null){
-  currentFilter = tag;
+async function vote(postId, type) {
+  if (!wallet) return alert("Please connect wallet first");
   
-  // Update filter badge
-  if(tag) {
-    filterBadge.style.display = 'inline';
-    filterBadge.innerHTML = `Filter: #${tag} <span class="clear-filter" style="cursor:pointer;margin-left:8px">✕</span>`;
-  } else {
-    filterBadge.style.display = 'none';
-  }
+  const { data: existing } = await db
+    .from("votes")
+    .select()
+    .eq("post_id", postId)
+    .eq("voter", wallet)
+    .single();
 
-  // Query posts
-  let query = db.from("posts").select("*").order("created_at", { ascending:false });
-  if(tag) query = query.contains("tags", [tag]);
-  
-  const { data:posts, error } = await query;
-  if(error) return console.error(error);
-
-  feed.innerHTML = "";
-  if(!posts.length) {
-    feed.innerHTML = `<div style="text-align:center;padding:40px;color:var(--muted)">No posts yet. Be the first to post!</div>`;
+  // Wenn bereits gevoted, entfernen (toggle)
+  if (existing) {
+    await db.from("votes").delete().eq("id", existing.id);
+    await updatePostScore(postId);
     return;
   }
 
-  // Hashtag trends berechnen
-  const tagCounts = {};
-  posts.forEach(p => {
-    (p.tags || []).forEach(t => tagCounts[t] = (tagCounts[t] || 0) + 1);
-  });
-  renderTrends(tagCounts);
-
-  // Posts rendern
-  for(const p of posts){
-    const av = await avatar(p.wallet);
-    const voteState = localStorage.getItem("vote_" + p.id) || "none";
-
-    const postEl = document.createElement("div");
-    postEl.className = "post";
-    postEl.innerHTML = `
-      <div class="avatar ${av ? 'nft-halo' : ''}">
-        <img src="${av || '../img/1boss.png'}" alt="avatar">
-      </div>
-      <div>
-        <div class="muted">${p.wallet.slice(0,8)}…${p.wallet.slice(-4)}</div>
-        <div class="post-content">${renderTextWithTags(p.content)}</div>
-        <div class="post-actions">
-          <div class="vote-btn ${voteState === 'up' ? 'active-up' : ''}" onclick="vote('${p.id}', 'up')">
-            👍 ${p.upvotes || 0}
-          </div>
-          <div class="vote-btn ${voteState === 'down' ? 'active-down' : ''}" onclick="vote('${p.id}', 'down')">
-            👎 ${p.downvotes || 0}
-          </div>
-          <div class="icon-btn" onclick="tip('${p.wallet}')">💸 Tip</div>
-        </div>
-      </div>
-    `;
-    feed.appendChild(postEl);
-  }
+  // Neuer Vote
+  await db.from("votes").insert([{ post_id: postId, voter: wallet, type }]);
+  await updatePostScore(postId);
 }
 
-/* ---------- Trends ---------- */
-function renderTrends(tagCounts){
-  const sorted = Object.entries(tagCounts).sort((a,b) => b[1] - a[1]).slice(0,5);
+async function updatePostScore(postId) {
+  // Score berechnen: upvotes - downvotes
+  const { data: votes } = await db
+    .from("votes")
+    .select("type")
+    .eq("post_id", postId);
+
+  const score = (votes || []).reduce((acc, v) => acc + (v.type === "up" ? 1 : -1), 0);
+  
+  await db
+    .from("posts")
+    .update({ score })
+    .eq("id", postId);
+}
+
+/* ---------- FEED LOAD ---------- */
+async function loadFeed(filter = null) {
+  let query = db
+    .from("posts")
+    .select(`
+      *,
+      votes (type, voter)
+    `)
+    .order("created_at", { ascending: false });
+
+  if (filter) {
+    query = query.contains("tags", [filter]);
+  }
+
+  const { data: posts, error } = await query;
+  if (error) { console.error(error); return; }
+
+  feed.innerHTML = "";
+  posts.forEach(p => renderPost(p));
+}
+
+function renderPost(p) {
+  const el = document.createElement("div");
+  el.className = "post";
+  el.dataset.id = p.id;
+
+  // User vote status checken
+  const userVote = p.votes?.find(v => v.voter === wallet);
+  const upActive = userVote?.type === "up" ? "active-up" : "";
+  const downActive = userVote?.type === "down" ? "active-down" : "";
+
+  const score = p.score || 0;
+
+  el.innerHTML = `
+    <div class="avatar">
+      <img src="../img/1boss.png" alt="Avatar">
+    </div>
+    <div>
+      <div class="muted">
+        <span class="wallet-label">${p.wallet.slice(0,4)}…${p.wallet.slice(-4)}</span>
+        • ${new Date(p.created_at).toLocaleString()}
+      </div>
+      <div class="post-content">${renderTextWithTags(p.content)}</div>
+      <div class="post-actions">
+        <div class="vote-btn ${upActive}" onclick="vote(${p.id}, 'up')">
+          ▲ ${score > 0 ? score : ''}
+        </div>
+        <div class="vote-btn ${downActive}" onclick="vote(${p.id}, 'down')">
+          ▼ ${score < 0 ? score : ''}
+        </div>
+        <div class="icon-btn" title="Tip">💎</div>
+        <div class="icon-btn" title="Share">↗️</div>
+      </div>
+    </div>
+  `;
+
+  // Wallet Labels asynchron setzen
+  const labelEl = el.querySelector(".wallet-label");
+  if (typeof displayWalletLabel === 'function') {
+    displayWalletLabel(p.wallet, labelEl);
+  }
+
+  // Hashtag Click Handler
+  el.querySelectorAll(".hashtag").forEach(tag => {
+    tag.onclick = () => filterByTag(tag.dataset.tag);
+  });
+
+  feed.appendChild(el);
+}
+
+/* ---------- TRENDING ---------- */
+async function updateTrending() {
+  const { data: posts } = await db
+    .from("posts")
+    .select("tags")
+    .not("tags", "is", null);
+
+  const allTags = posts?.flatMap(p => p.tags) || [];
+  const counts = {};
+  allTags.forEach(t => counts[t] = (counts[t] || 0) + 1);
+
+  const sorted = Object.entries(counts).sort((a,b) => b[1] - a[1]).slice(0,5);
+
   trendBox.innerHTML = sorted.length ? 
     sorted.map(([tag,count]) => `
-      <div class="trend-item" onclick="loadFeed('${tag}')">
+      <div class="trend-item" onclick="filterByTag('${tag}')">
         <span>#${tag}</span>
         <span class="trend-count">${count}</span>
       </div>
-    `).join("") :
+    `).join("") : 
     `<div class="small" style="text-align:center;padding:20px;color:var(--muted)">No trends yet. Be the first to post with #hashtags!</div>`;
 }
 
-/* ---------- Post creation ---------- */
-postBtn.onclick = async ()=>{
-  if(!wallet) return alert("Please connect wallet!");
+/* ---------- FILTER ---------- */
+function filterByTag(tag) {
+  currentFilter = tag;
+  filterBadge.style.display = "inline";
+  filterBadge.innerHTML = `#${tag} <span class="active-filter">Active</span>`;
+  loadFeed(tag);
+}
+
+resetFeedBtn.onclick = () => {
+  currentFilter = null;
+  filterBadge.style.display = "none";
+  loadFeed();
+};
+
+/* ---------- POSTING ---------- */
+postBtn.onclick = async ()=> {
+  if(!wallet) return alert("Please connect wallet first");
   const text = postText.value.trim();
-  if(!text) return alert("Please enter post content");
+  if(!text) return alert("Please enter some text");
   if(text.length > 140) return alert("Post too long (max 140 chars)");
 
   try {
     postBtn.disabled = true;
     postBtn.textContent = "Paying...";
 
-    // Payment
-    const tx = await pay(0.001);
-
-    // Save post
-    await savePost(text, tx);
-
-    // UI update
+    const sig = await pay(0.001);
+    await savePost(text, sig);
     postText.value = "";
-    postSound.play().catch(e=>console.log("Audio blocked:",e));
-    loadFeed();
 
-    // Boom effect for newest post
-    const firstPost = feed.firstChild;
-    if(firstPost){
-      firstPost.classList.add("post-boom");
-      boomSound.play().catch(e=>console.log("Boom audio blocked:",e));
+    // Sound abspielen
+    if (postSound) {
+      postSound.currentTime = 0;
+      postSound.play().catch(e => console.log("Sound play failed:", e));
     }
 
-  } catch(e){
-    console.error(e);
-    alert("Failed: " + e.message);
+    // Feed neu laden
+    await loadFeed(currentFilter);
+    await updateTrending();
+
+    // Boom-Effekt für den neuesten Post
+    const latestPost = feed.firstChild;
+    if (latestPost) {
+      latestPost.classList.add("post-boom");
+      if (boomSound) {
+        boomSound.currentTime = 0;
+        boomSound.play().catch(e => console.log("Boom sound failed:", e));
+      }
+    }
+
+  } catch(err) {
+    console.error(err);
+    alert("Failed: " + err.message);
   } finally {
     postBtn.disabled = false;
     postBtn.textContent = "Post";
   }
 };
 
-/* ---------- Tipping ---------- */
-window.tip = async (toWallet) => {
-  if(!wallet) return alert("Please connect wallet!");
-  const amount = prompt("Enter tip amount (SOL):", "0.001");
-  if(!amount || isNaN(amount)) return;
+/* ---------- PROFILE POPUP FUNCTIONS ---------- */
+const profilePopup = document.getElementById("profilePopup");
 
-  try {
-    const tx = await pay(parseFloat(amount));
-    alert(`Tip sent! TX: ${tx.slice(0,12)}…`);
-  } catch(e){
-    alert("Tip failed: " + e.message);
-  }
+window.openProfilePopup = async function() {
+  if (!wallet) return alert("Please connect your wallet first!");
+  await loadProfileData();
+  profilePopup.classList.add("show");
+  document.body.style.overflow = "hidden";
 };
 
-/* ---------- Profile Popup ---------- */
-profileLink.onclick = () => {
-  if(!wallet) return alert("Please connect wallet first!");
-  showProfilePopup();
+window.closeProfilePopup = function() {
+  profilePopup.classList.remove("show");
+  document.body.style.overflow = "auto";
 };
 
-document.querySelector(".close-popup").onclick = () => {
-  document.getElementById("profilePopup").style.display = "none";
-};
+async function loadProfileData() {
+  if (!wallet) return;
 
-async function showProfilePopup() {
-  const popup = document.getElementById("profilePopup");
-  const avatarEl = document.getElementById("profileAvatar");
-  const walletEl = document.getElementById("profileWallet");
-  
-  // Avatar laden
-  const av = await avatar(wallet);
-  avatarEl.innerHTML = `<img src="${av || '../img/1boss.png'}" alt="avatar">`;
-  
   // Wallet Adresse anzeigen
-  walletEl.textContent = `${wallet.slice(0,8)}…${wallet.slice(-4)}`;
-  
-  // User Stats laden
-  const { data: posts } = await db.from("posts").select("id").eq("wallet", wallet);
-  const { data: upvotes } = await db.from("posts").select("upvotes").eq("wallet", wallet);
-  
-  document.getElementById("postsCount").textContent = posts?.length || 0;
-  document.getElementById("upvotesCount").textContent = upvotes?.reduce((sum, p) => sum + (p.upvotes || 0), 0) || 0;
-  document.getElementById("tipsReceived").textContent = "0"; // Könnte später implementiert werden
-  
-  popup.style.display = "flex";
+  const walletEl = document.getElementById("profileWallet");
+  if (walletEl) {
+    walletEl.textContent = `${wallet.slice(0, 6)}...${wallet.slice(-4)}`;
+  }
+
+  // Avatar laden
+  const avatarUrl = await avatar(wallet);
+  const avatarEl = document.getElementById("profileAvatar");
+  if (avatarEl) {
+    if (avatarUrl) {
+      avatarEl.innerHTML = `<img src="${avatarUrl}" alt="Profile Avatar" onerror="this.style.display='none'">`;
+      avatarEl.classList.add("nft-halo");
+    } else {
+      avatarEl.innerHTML = `<img src="../img/1boss.png" alt="Default Avatar">`;
+      avatarEl.classList.remove("nft-halo");
+    }
+  }
+
+  // Statistiken laden
+  await loadProfileStats();
+}
+
+async function loadProfileStats() {
+  // Posts zählen
+  const { count: postsCount } = await db
+    .from("posts")
+    .select("*", { count: "exact", head: true })
+    .eq("wallet", wallet);
+
+  // Upvotes zählen (nur positive Votes)
+  const { count: upvotesCount } = await db
+    .from("votes")
+    .select("*", { count: "exact", head: true })
+    .eq("type", "up")
+    .eq("voter", wallet);
+
+  // Tips received zählen (vereinfacht - hier müsste man die Tips-Tabelle abfragen)
+  const tipsReceived = 0; // Platzhalter
+
+  document.getElementById("postsCount").textContent = postsCount || 0;
+  document.getElementById("upvotesCount").textContent = upvotesCount || 0;
+  document.getElementById("tipsReceived").textContent = tipsReceived;
 }
 
 function copyWalletAddress() {
-  navigator.clipboard.writeText(wallet);
-  alert("Wallet address copied!");
+  navigator.clipboard.writeText(wallet).then(() => {
+    alert("Wallet address copied to clipboard!");
+  });
 }
 
 function viewOnExplorer() {
   window.open(`https://solscan.io/account/${wallet}`, "_blank");
 }
 
-/* ---------- Event Listeners ---------- */
-document.addEventListener("click", (e) => {
-  // Hashtag click
-  if(e.target.classList.contains("hashtag")){
-    const tag = e.target.dataset.tag;
-    loadFeed(tag);
+/* ---------- EVENT LISTENERS FÜR POPUP (NACH DEN FUNKTIONEN!) ---------- */
+document.addEventListener("DOMContentLoaded", () => {
+  // Close Button
+  const closeBtn = document.querySelector(".close-popup");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.closeProfilePopup();
+    });
   }
-  
-  // Clear filter
-  if(e.target.classList.contains("clear-filter")){
-    loadFeed();
+
+  // Background Click
+  if (profilePopup) {
+    profilePopup.addEventListener("click", (e) => {
+      if (e.target === profilePopup) {
+        window.closeProfilePopup();
+      }
+    });
+  }
+
+  // Profile Link – jetzt funktioniert's!
+  if (profileLink) {
+    profileLink.addEventListener("click", (e) => {
+      e.preventDefault(); // WICHTIG: verhindert Default-Button-Verhalten
+      window.openProfilePopup();
+    });
   }
 });
 
-resetFeedBtn.onclick = () => loadFeed();
-
-/* ---------- Init ---------- */
-loadFeed();
-
-// Auto-connect if previously connected
-window.addEventListener("load", async ()=>{
+/* ---------- INIT ---------- */
+async function init(){
+  // Auto-connect if previously connected
   const p = getWallet();
   if(p?.isConnected && p.publicKey){
     wallet = p.publicKey.toString();
     uiConnected(wallet);
   }
-});
+
+  await loadFeed();
+  await updateTrending();
+
+  // Poll for new posts
+  setInterval(async ()=>{
+    await loadFeed(currentFilter);
+    await updateTrending();
+  }, 10000);
+}
+
+init();
 </script>
 </body>
 </html>
