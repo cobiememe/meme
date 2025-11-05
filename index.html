@@ -1148,11 +1148,10 @@ getWallet()?.on("connect", (pk) => { wallet = pk.publicKey.toString(); uiConnect
 getWallet()?.on("disconnect", () => { wallet = null; uiDisconnected(); });
 if(getWallet()?.publicKey){ wallet = getWallet().publicKey.toString(); uiConnected(wallet); }
 
-  // ✅ Profile button click binding fallback
-const pl = document.getElementById("profileLink");
-if (pl) pl.onclick = openProfilePopup;
+
 
 </script>
 </body>
 </html>
+
 
